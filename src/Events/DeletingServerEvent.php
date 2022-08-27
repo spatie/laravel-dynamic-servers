@@ -7,7 +7,7 @@ use Spatie\DynamicServers\Models\Server;
 class DeletingServerEvent
 {
     public function __construct(
-        public Server $server
+        public Server $server,
     ) {
     }
 }
