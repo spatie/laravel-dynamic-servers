@@ -10,17 +10,12 @@ return new class extends Migration
     {
         Schema::create('dynamic_servers', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
+            $table->string('provider');
             $table->string('status');
             $table->timestamp('status_updated_at')->nullable();
-
-            $table->string('account');
-            $table->string('ip')->nullable();
             $table->json('meta');
-
             $table->text('exception_message')->nullable();
-
             $table->timestamps();
         });
     }
