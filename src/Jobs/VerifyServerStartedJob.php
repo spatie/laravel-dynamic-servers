@@ -3,10 +3,6 @@
 namespace Spatie\DynamicServers\Jobs;
 
 use Exception;
-use Spatie\DynamicServers\Actions\MarkServerAsReadyAction;
-use Spatie\DynamicServers\Events\ServerRunningEvent;
-use Spatie\DynamicServers\Models\Server;
-use Spatie\DynamicServers\UpCloud;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,6 +10,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\DynamicServers\Enums\ServerStatus;
+use Spatie\DynamicServers\Events\ServerRunningEvent;
+use Spatie\DynamicServers\Models\Server;
 
 class VerifyServerStartedJob implements ShouldQueue, ShouldBeUnique
 {
@@ -32,7 +30,6 @@ class VerifyServerStartedJob implements ShouldQueue, ShouldBeUnique
     {
         try {
             if ($this->server->provider()->hasStarted()) {
-
                 $this->server->markAs(ServerStatus::Running);
 
                 event(new ServerRunningEvent($this->server));
@@ -46,6 +43,5 @@ class VerifyServerStartedJob implements ShouldQueue, ShouldBeUnique
 
             report($exception);
         }
-
     }
 }

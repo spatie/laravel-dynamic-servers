@@ -4,7 +4,6 @@ namespace Spatie\DynamicServers;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\DynamicServers\Commands\DynamicServersCommand;
 
 class DynamicServersServiceProvider extends PackageServiceProvider
 {

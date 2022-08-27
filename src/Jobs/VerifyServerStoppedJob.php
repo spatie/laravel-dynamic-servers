@@ -3,12 +3,6 @@
 namespace Spatie\DynamicServers\Jobs;
 
 use Exception;
-use Spatie\DynamicServers\Actions\MarkServerAsReadyAction;
-use Spatie\DynamicServers\Events\ServerRunningEvent;
-use Spatie\DynamicServers\Events\ServerStoppedEvent;
-use Spatie\DynamicServers\Models\Server;
-use Spatie\DynamicServers\Support\Config;
-use Spatie\DynamicServers\UpCloud;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,6 +10,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\DynamicServers\Enums\ServerStatus;
+use Spatie\DynamicServers\Events\ServerStoppedEvent;
+use Spatie\DynamicServers\Models\Server;
+use Spatie\DynamicServers\Support\Config;
 
 class VerifyServerStoppedJob implements ShouldQueue, ShouldBeUnique
 {
@@ -34,7 +31,6 @@ class VerifyServerStoppedJob implements ShouldQueue, ShouldBeUnique
     {
         try {
             if ($this->server->provider()->hasBeenStopped()) {
-
                 $this->server->markAs(ServerStatus::Stopped);
 
                 event(new ServerStoppedEvent($this->server));
