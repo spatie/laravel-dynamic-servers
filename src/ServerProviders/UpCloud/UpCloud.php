@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
+use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CannotGetUpCloudServerDetails;
 use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CouldNotGetUpCloudServerDetails;
 
 class UpCloud extends ServerProvider
@@ -97,7 +98,7 @@ class UpCloud extends ServerProvider
         $response = $this->request()->get("/server/{$serverUuid}");
 
         if (! $response->successful()) {
-            throw CouldNotGetUpCloudServerDetails::make($this->server, $response);
+            throw CannotGetUpCloudServerDetails::make($this->server, $response);
         }
 
         return UpCloudServer::fromApiPayload($response->json('server'));

@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Http\Client\Response;
 use Spatie\DynamicServers\Models\Server;
 
-class CouldNotGetUpCloudServerDetails extends Exception
+class CannotGetUpCloudServerDetails extends Exception
 {
     public static function make(
         Server $server,
