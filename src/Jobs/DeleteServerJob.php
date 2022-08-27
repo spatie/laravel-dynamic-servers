@@ -3,17 +3,15 @@
 namespace Spatie\DynamicServers\Jobs;
 
 use Exception;
-use Spatie\DynamicServers\Events\CreatingServerEvent;
-use Spatie\DynamicServers\Events\DeletingServerEvent;
-use Spatie\DynamicServers\Models\Server;
-use Spatie\DynamicServers\Support\Config;
-use Spatie\DynamicServers\UpCloud;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Spatie\DynamicServers\Events\DeletingServerEvent;
+use Spatie\DynamicServers\Models\Server;
+use Spatie\DynamicServers\Support\Config;
 
 class DeleteServerJob implements ShouldQueue, ShouldBeUnique
 {
@@ -45,7 +43,5 @@ class DeleteServerJob implements ShouldQueue, ShouldBeUnique
         $verifyServerDeletedJob = Config::jobClass('verify_server_deleted');
 
         dispatch(new $verifyServerDeletedJob($this->server));
-
-
     }
 }

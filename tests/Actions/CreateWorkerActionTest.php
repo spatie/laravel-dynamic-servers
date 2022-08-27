@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
 use Laravel\Horizon\Events\LongWaitDetected;
-use Spatie\DynamicServers\Jobs\VerifyServerStartedJob;
 use Spatie\DynamicServers\Jobs\CreateWorkerJob;
 use Spatie\DynamicServers\Jobs\DeleteWorkerJob;
+use Spatie\DynamicServers\Jobs\VerifyServerStartedJob;
 
 beforeEach(function () {
     $fakeUuid = getStub('server');

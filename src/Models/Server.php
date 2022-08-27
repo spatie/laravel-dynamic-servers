@@ -28,7 +28,7 @@ class Server extends Model
 
     public static function booted()
     {
-        Server::creating(function() {
+        Server::creating(function () {
             $this->status = ServerStatus::New;
         });
     }
@@ -89,7 +89,7 @@ class Server extends Model
         $this->update([
             'status' => ServerStatus::Errored,
             'status_updated_at' => now(),
-            'exception_message' => $exception->getMessage()
+            'exception_message' => $exception->getMessage(),
         ]);
     }
 

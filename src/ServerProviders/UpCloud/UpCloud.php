@@ -5,7 +5,6 @@ namespace Spatie\DynamicServers\ServerProviders\UpCloud;
 use Exception;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
-use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CouldNotGetUpCloudServerDetails;
 
@@ -25,7 +24,7 @@ class UpCloud extends ServerProvider
                             [
                                 'action' => 'clone',
                                 'storage' => config('settings.worker_image_uuid'),
-                                'title' => $this->server->name . '-disk',
+                                'title' => $this->server->name.'-disk',
                                 'tier' => 'maxiops',
                             ],
                         ],
@@ -33,7 +32,7 @@ class UpCloud extends ServerProvider
                 ],
             ]);
 
-        if (!$response->successful()) {
+        if (! $response->successful()) {
             throw new Exception($response->json('error.error_message'));
         }
 
@@ -60,7 +59,7 @@ class UpCloud extends ServerProvider
             ],
         ]);
 
-        if (!$response->successful()) {
+        if (! $response->successful()) {
             throw new Exception($response->json('error.error_message'));
         }
     }
@@ -97,7 +96,7 @@ class UpCloud extends ServerProvider
 
         $response = $this->request()->get("/server/{$serverUuid}");
 
-        if (!$response->successful()) {
+        if (! $response->successful()) {
             throw CouldNotGetUpCloudServerDetails::make($this->server, $response);
         }
 

@@ -9,7 +9,7 @@ class Config
 {
     public static function jobClass(string $jobName): string
     {
-        $jobClass =  config("dynamic-servers.jobs.{$jobName}");
+        $jobClass = config("dynamic-servers.jobs.{$jobName}");
 
         if (empty($jobClass)) {
             throw JobDoesNotExist::make($jobName);

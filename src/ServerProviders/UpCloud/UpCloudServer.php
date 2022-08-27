@@ -7,9 +7,9 @@ use Spatie\LaravelData\Data;
 class UpCloudServer extends Data
 {
     public function __construct(
-        public string       $uuid,
-        public string       $title,
-        public string       $ip,
+        public string $uuid,
+        public string $title,
+        public string $ip,
         public UpCloudServerStatus $status,
     ) {
     }
