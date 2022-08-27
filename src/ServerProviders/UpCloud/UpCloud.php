@@ -7,7 +7,6 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CannotGetUpCloudServerDetails;
-use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CouldNotGetUpCloudServerDetails;
 
 class UpCloud extends ServerProvider
 {
