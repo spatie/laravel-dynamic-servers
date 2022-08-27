@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CannotGetUpCloudServerDetails;
-use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CouldNotGetUpCloudServerDetails;
 
 class UpCloud extends ServerProvider
 {
