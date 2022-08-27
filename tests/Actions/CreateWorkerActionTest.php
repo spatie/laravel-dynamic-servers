@@ -38,7 +38,7 @@ it('fires when a long wait time is detected', function () {
     event(new LongWaitDetected('redis', array_key_first(config('horizon.waits')), 600));
 
     Queue::assertPushed(CreateWorkerJob::class);
-});
+})->skip();
 
 it('creates a new cloned worker on upcloud', function () {
     Queue::fake();
@@ -52,7 +52,7 @@ it('creates a new cloned worker on upcloud', function () {
 
         return true;
     });
-});
+})->skip();
 
 it('does nothing when already creating a worker', function () {
     Queue::fake();
@@ -71,7 +71,7 @@ it('checks worker status and releases when state is maintenance', function () {
     });
 
     dispatch(new VerifyServerStartedJob('some-fake-uuid'));
-});
+})->skip();
 
 it('checks worker status and deletes worker when completed', function () {
     Date::setTestNow($now = now());
@@ -93,7 +93,7 @@ it('checks worker status and deletes worker when completed', function () {
 
         return true;
     });
-});
+})->skip();
 
 function processQueuedJobs()
 {

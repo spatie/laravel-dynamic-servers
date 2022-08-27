@@ -12,7 +12,8 @@ class ServerFactory extends Factory
     public function definition()
     {
         return [
-
+            'name' => 'server-name',
+            'provider' => 'up_cloud',
         ];
     }
 }

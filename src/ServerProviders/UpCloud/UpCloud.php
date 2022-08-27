@@ -5,6 +5,7 @@ namespace Spatie\DynamicServers\ServerProviders\UpCloud;
 use Exception;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CannotGetUpCloudServerDetails;
 use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CouldNotGetUpCloudServerDetails;
@@ -18,14 +19,14 @@ class UpCloud extends ServerProvider
                 'server' => [
                     'zone' => 'de-fra1',
                     'title' => $this->server->name,
-                    'hostname' => $this->server->name,
+                    'hostname' => Str::slug($this->server->name),
                     'plan' => '2xCPU-4GB',
                     'storage_devices' => [
                         'storage_device' => [
                             [
                                 'action' => 'clone',
-                                'storage' => config('settings.worker_image_uuid'),
-                                'title' => $this->server->name.'-disk',
+                                'storage' => $this->server->option('disk_image'),
+                                'title' => Str::slug($this->server->name).'-disk',
                                 'tier' => 'maxiops',
                             ],
                         ],

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Exceptions\CannotStartServer;
 use Spatie\DynamicServers\Exceptions\CannotStopServer;
+use Spatie\DynamicServers\Exceptions\InvalidProvider;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\Config;
 
@@ -28,8 +29,9 @@ class Server extends Model
 
     public static function booted()
     {
-        Server::creating(function () {
-            $this->status = ServerStatus::New;
+        Server::creating(function (Server $server) {
+            $server->status = ServerStatus::New;
+            $server->meta = [];
         });
     }
 
@@ -76,12 +78,18 @@ class Server extends Model
     public function provider(): ServerProvider
     {
         /** @var class-string<ServerProvider> $providerClassName */
-        $providerClassName = config("dynamic-servers.providers.{$this->provider}");
+        $providerClassName = config("dynamic-servers.providers.{$this->provider}.class") ?? '';
+
+        if (! is_a($providerClassName, ServerProvider::class, true)) {
+            throw InvalidProvider::make($this);
+        }
 
         /** @var ServerProvider $providerClass */
-        $providerClass = app($providerClassName);
+        $serverProvider = app($providerClassName);
 
-        $providerClass->setServer($this);
+        $serverProvider->setServer($this);
+
+        return $serverProvider;
     }
 
     public function markAsErrored(Exception $exception)
@@ -89,7 +97,9 @@ class Server extends Model
         $this->update([
             'status' => ServerStatus::Errored,
             'status_updated_at' => now(),
+            'exception_class' => $exception::class,
             'exception_message' => $exception->getMessage(),
+            'exception_trace' => $exception->getTraceAsString(),
         ]);
     }
 

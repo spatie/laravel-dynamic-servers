@@ -26,7 +26,7 @@ class CreateServerJob implements ShouldQueue, ShouldBeUnique
     {
     }
 
-    public function handle(): bool
+    public function handle()
     {
         try {
             $this->server->provider()->createServer();

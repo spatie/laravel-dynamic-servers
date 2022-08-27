@@ -15,7 +15,10 @@ return new class extends Migration
             $table->string('status');
             $table->timestamp('status_updated_at')->nullable();
             $table->json('meta');
+            $table->text('exception_class')->nullable();
             $table->text('exception_message')->nullable();
+            $table->text('exception_trace')->nullable();
+
             $table->timestamps();
         });
     }

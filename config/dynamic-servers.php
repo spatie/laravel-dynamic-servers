@@ -7,6 +7,7 @@ return [
             'options' => [
                 'username' => env('UP_CLOUD_USER_NAME'),
                 'password' => env('UP_CLOUD_PASSWORD'),
+                'disk_image' => env('UP_CLOUD_DISK_IMAGE_UUID'),
             ],
         ],
     ],

@@ -27,7 +27,7 @@ class VerifyServerStoppedJob implements ShouldQueue, ShouldBeUnique
     {
     }
 
-    public function handle(): bool
+    public function handle()
     {
         try {
             if ($this->server->provider()->hasBeenStopped()) {
