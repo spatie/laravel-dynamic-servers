@@ -12,7 +12,6 @@ use Illuminate\Queue\SerializesModels;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Events\ServerStoppedEvent;
 use Spatie\DynamicServers\Models\Server;
-use Spatie\DynamicServers\Support\Config;
 
 class VerifyServerStoppedJob implements ShouldQueue, ShouldBeUnique
 {

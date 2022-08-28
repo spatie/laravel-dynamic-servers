@@ -11,7 +11,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\DynamicServers\Events\StoppingServerEvent;
 use Spatie\DynamicServers\Models\Server;
-use Spatie\DynamicServers\Support\Config;
 
 class StopServerJob implements ShouldQueue, ShouldBeUnique
 {

@@ -3,7 +3,6 @@
 namespace Spatie\DynamicServers\Support;
 
 use Illuminate\Support\Arr;
-use Spatie\DynamicServers\Exceptions\JobDoesNotExist;
 
 class Config
 {
