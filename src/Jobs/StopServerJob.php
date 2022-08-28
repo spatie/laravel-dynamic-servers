@@ -40,7 +40,7 @@ class StopServerJob implements ShouldQueue, ShouldBeUnique
 
         event(new StoppingServerEvent($this->server));
 
-        $verifyServerStoppedJob = Config::jobClass('verify_server_stopped');
+        $verifyServerStoppedJob = config()->dynamicServerJobClass('verify_server_stopped');
 
         dispatch(new $verifyServerStoppedJob($this->server));
     }

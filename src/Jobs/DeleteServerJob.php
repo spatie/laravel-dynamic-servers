@@ -40,7 +40,7 @@ class DeleteServerJob implements ShouldQueue, ShouldBeUnique
 
         event(new DeletingServerEvent($this->server));
 
-        $verifyServerDeletedJob = Config::jobClass('verify_server_deleted');
+        $verifyServerDeletedJob = config()->dynamicServerJobClass('verify_server_deleted');
 
         dispatch(new $verifyServerDeletedJob($this->server));
     }

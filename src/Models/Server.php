@@ -41,7 +41,7 @@ class Server extends Model
             throw CannotStartServer::wrongStatus($this);
         }
 
-        $createServerJobClass = Config::jobClass('create_server');
+        $createServerJobClass = config()->dynamicServerJobClass('create_server');
 
         dispatch(new $createServerJobClass($this));
 
@@ -56,7 +56,7 @@ class Server extends Model
             throw CannotStopServer::wrongStatus($this);
         }
 
-        $deleteServerJobClass = Config::jobClass('delete_server');
+        $deleteServerJobClass = config()->dynamicServerJobClass('delete_server');
 
         dispatch(new $deleteServerJobClass($this));
 

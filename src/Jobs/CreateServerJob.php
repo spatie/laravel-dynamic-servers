@@ -40,7 +40,7 @@ class CreateServerJob implements ShouldQueue, ShouldBeUnique
 
         event(new CreatingServerEvent($this->server));
 
-        $verifyServerStartedJob = Config::jobClass('verify_server_started');
+        $verifyServerStartedJob = config()->dynamicServerJobClass('verify_server_started');
 
         dispatch(new $verifyServerStartedJob($this->server));
     }
