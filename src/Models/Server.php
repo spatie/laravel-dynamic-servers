@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Exceptions\CannotStartServer;
 use Spatie\DynamicServers\Exceptions\CannotStopServer;
@@ -101,6 +102,11 @@ class Server extends Model
             'exception_message' => $exception->getMessage(),
             'exception_trace' => $exception->getTraceAsString(),
         ]);
+    }
+
+    public function meta(string $key, mixed $default = null)
+    {
+        return Arr::get($this->meta, $key) ?? $default;
     }
 
     public function addMeta(string $name, string|array|int|bool $value): self
