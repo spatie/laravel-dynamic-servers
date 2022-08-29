@@ -8,9 +8,9 @@ uses(TestCase::class)->in(__DIR__);
 
 function getStub(string $name, array $overrides = []): array
 {
-    $properties =  json_decode(file_get_contents(__DIR__."/TestSupport/stubs/{$name}.json"), true);
+    $properties = json_decode(file_get_contents(__DIR__."/TestSupport/stubs/{$name}.json"), true);
 
-    foreach($overrides as $key => $value) {
+    foreach ($overrides as $key => $value) {
         Arr::set($properties, $key, $value);
     }
 

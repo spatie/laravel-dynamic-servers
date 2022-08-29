@@ -40,7 +40,7 @@ beforeEach(function () {
     ]);
 });
 
-it('can start a server', function() {
+it('can start a server', function () {
     $this->server->start();
     Queue::assertPushed(CreateServerJob::class);
     expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
