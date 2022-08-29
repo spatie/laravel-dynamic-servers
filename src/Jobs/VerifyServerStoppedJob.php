@@ -12,7 +12,6 @@ use Illuminate\Queue\SerializesModels;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Events\ServerStoppedEvent;
 use Spatie\DynamicServers\Models\Server;
-use Spatie\DynamicServers\Support\Config;
 
 class VerifyServerStoppedJob implements ShouldQueue, ShouldBeUnique
 {
@@ -35,7 +34,7 @@ class VerifyServerStoppedJob implements ShouldQueue, ShouldBeUnique
 
                 event(new ServerStoppedEvent($this->server));
 
-                $deleteServerJob = Config::jobClass('delete_server');
+                $deleteServerJob = config()->dynamicServerJobClass('delete_server');
 
                 dispatch(new $deleteServerJob($this->server));
 

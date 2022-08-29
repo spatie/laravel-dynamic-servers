@@ -11,7 +11,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\DynamicServers\Events\DeletingServerEvent;
 use Spatie\DynamicServers\Models\Server;
-use Spatie\DynamicServers\Support\Config;
 
 class DeleteServerJob implements ShouldQueue, ShouldBeUnique
 {
@@ -40,7 +39,7 @@ class DeleteServerJob implements ShouldQueue, ShouldBeUnique
 
         event(new DeletingServerEvent($this->server));
 
-        $verifyServerDeletedJob = Config::jobClass('verify_server_deleted');
+        $verifyServerDeletedJob = config()->dynamicServerJobClass('verify_server_deleted');
 
         dispatch(new $verifyServerDeletedJob($this->server));
     }
