@@ -49,7 +49,7 @@ class Server extends Model
             throw CannotStartServer::wrongStatus($this);
         }
 
-        /** @var class-string<\Spatie\DynamicServers\Jobs\CreateServerJob> $createServerJobClass */
+        /** @var class-string<CreateServerJob> $createServerJobClass */
         $createServerJobClass = Config::dynamicServerJobClass('create_server');
 
         dispatch(new $createServerJobClass($this));
