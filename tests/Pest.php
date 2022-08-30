@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Queue;
 use Spatie\DynamicServers\Tests\TestSupport\TestCase;
 
 uses(TestCase::class)->in(__DIR__);
@@ -16,5 +15,3 @@ function getStub(string $name, array $overrides = []): array
 
     return $properties;
 }
-
-
