@@ -14,6 +14,7 @@ use Spatie\DynamicServers\Exceptions\InvalidProvider;
 use Spatie\DynamicServers\Jobs\StopServerJob;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\Config;
+use Spatie\DynamicServers\Jobs\CreateServerJob;
 
 class Server extends Model
 {
