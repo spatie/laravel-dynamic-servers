@@ -2,8 +2,6 @@
 
 namespace Spatie\DynamicServers;
 
-use Illuminate\Support\Facades\Config;
-use Spatie\DynamicServers\Exceptions\JobDoesNotExist;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
