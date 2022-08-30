@@ -46,11 +46,11 @@ it('can mark a server as errored', function () {
         ->exception_trace->toBeString();
 });
 
-it('can get a provider', function() {
+it('can get a provider', function () {
     expect($this->server->provider())->toBeInstanceOf(ServerProvider::class);
 });
 
-it('will throw an exception when using an unknown provider', function() {
+it('will throw an exception when using an unknown provider', function () {
     $this->server->update([
         'provider' => 'unknown_provider',
     ]);
@@ -58,17 +58,16 @@ it('will throw an exception when using an unknown provider', function() {
     expect($this->server->provider());
 })->throws(InvalidProvider::class);
 
-it('will dispatch a job to start a server', function() {
+it('will dispatch a job to start a server', function () {
     $this->server->start();
 
     Queue::assertPushed(CreateServerJob::class);
 });
 
-it('will throw an exception if the server is not in the right state to be started', function() {
+it('will throw an exception if the server is not in the right state to be started', function () {
     $this->server->update([
-        'status' => ServerStatus::Starting
+        'status' => ServerStatus::Starting,
     ]);
 
     $this->server->start();
 })->throws(CannotStartServer::class);
-
