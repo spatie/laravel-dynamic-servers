@@ -72,6 +72,9 @@
             "providers": [
                 "Spatie\\DynamicServers\\DynamicServersServiceProvider"
             ]
+        },
+        "aliases": {
+            "DynamicServers": "Spatie\\DynamicServers\\Facades\\DynamicServers"
         }
     },
     "minimum-stability": "dev",
