@@ -11,6 +11,7 @@ use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Exceptions\CannotStartServer;
 use Spatie\DynamicServers\Exceptions\CannotStopServer;
 use Spatie\DynamicServers\Exceptions\InvalidProvider;
+use Spatie\DynamicServers\Jobs\StopServerJob;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\Config;
 
@@ -47,7 +48,8 @@ class Server extends Model
             throw CannotStartServer::wrongStatus($this);
         }
 
-        $createServerJobClass = config()->dynamicServerJobClass('create_server');
+        /** @var class-string<\Spatie\DynamicServers\Jobs\CreateServerJob> $createServerJobClass */
+        $createServerJobClass = Config::dynamicServerJobClass('create_server');
 
         dispatch(new $createServerJobClass($this));
 
@@ -62,9 +64,10 @@ class Server extends Model
             throw CannotStopServer::wrongStatus($this);
         }
 
-        $deleteServerJobClass = config()->dynamicServerJobClass('stop_server');
+        /** @var class-string<StopServerJob> $stopServerJobClass */
+        $stopServerJobClass = Config::dynamicServerJobClass('stop_server');
 
-        dispatch(new $deleteServerJobClass($this));
+        dispatch(new $stopServerJobClass($this));
 
         $this->markAs(ServerStatus::Stopping);
 

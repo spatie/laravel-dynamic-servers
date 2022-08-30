@@ -17,17 +17,4 @@ class DynamicServersServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_dynamic_servers_table');
     }
-
-    public function packageRegistered()
-    {
-        Config::macro('dynamicServerJobClass', function (string $jobName) {
-            $jobClass = config("dynamic-servers.jobs.{$jobName}");
-
-            if (empty($jobClass)) {
-                throw JobDoesNotExist::make($jobName);
-            }
-
-            return $jobClass;
-        });
-    }
 }

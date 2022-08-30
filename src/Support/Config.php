@@ -3,6 +3,7 @@
 namespace Spatie\DynamicServers\Support;
 
 use Illuminate\Support\Arr;
+use Spatie\DynamicServers\Exceptions\JobDoesNotExist;
 
 class Config
 {
@@ -13,5 +14,16 @@ class Config
         return is_null($key)
             ? $providerOptions
             : Arr::get($providerOptions, $key);
+    }
+
+    public static function dynamicServerJobClass(string $jobName): mixed
+    {
+        $jobClass = config("dynamic-servers.jobs.{$jobName}");
+
+        if (empty($jobClass)) {
+            throw JobDoesNotExist::make($jobName);
+        }
+
+        return $jobClass;
     }
 }

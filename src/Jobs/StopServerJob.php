@@ -11,6 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\DynamicServers\Events\StoppingServerEvent;
 use Spatie\DynamicServers\Models\Server;
+use Spatie\DynamicServers\Support\Config;
 
 class StopServerJob implements ShouldQueue, ShouldBeUnique
 {
@@ -39,7 +40,8 @@ class StopServerJob implements ShouldQueue, ShouldBeUnique
 
         event(new StoppingServerEvent($this->server));
 
-        $verifyServerStoppedJob = config()->dynamicServerJobClass('verify_server_stopped');
+        /** @var class-string<VerifyServerStoppedJob> $verifyServerStoppedJob */
+        $verifyServerStoppedJob = Config::dynamicServerJobClass('verify_server_stopped');
 
         dispatch(new $verifyServerStoppedJob($this->server));
     }

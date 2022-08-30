@@ -14,5 +14,5 @@ it('can work with servers', function () {
 
     $server = $server->refresh();
 
-    dd($server->exception_class, $server->exception_message, $server->exception_trace);
-});
+    dd($server);
+})->skip('do not provision real servers now');
