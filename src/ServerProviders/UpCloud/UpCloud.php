@@ -79,14 +79,14 @@ class UpCloud extends ServerProvider
         $response = $this->request()
             ->delete("/server/{$serverUuid}?storages=1&backups=delete");
 
-        if ($response->status() !== 204) {
+        if (! $response->successful()) {
             throw new Exception($response->json('error.error_message', 'Could not delete server'));
         }
     }
 
     public function hasBeenDeleted(): bool
     {
-        // todo: implement
+        // to do: implement
 
         return true;
     }

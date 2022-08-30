@@ -13,7 +13,7 @@ use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Events\ServerDeletedEvent;
 use Spatie\DynamicServers\Models\Server;
 
-class VerifyServerDeleted implements ShouldQueue, ShouldBeUnique
+class VerifyServerDeletedJob implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable;
     use InteractsWithQueue;

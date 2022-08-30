@@ -18,6 +18,6 @@ return [
         'stop_server' => Spatie\DynamicServers\Jobs\StopServerJob::class,
         'verify_server_stopped' => Spatie\DynamicServers\Jobs\VerifyServerStoppedJob::class,
         'delete_server' => Spatie\DynamicServers\Jobs\DeleteServerJob::class,
-        'verify_server_deleted' => Spatie\DynamicServers\Jobs\VerifyServerStoppedJob::class,
+        'verify_server_deleted' => Spatie\DynamicServers\Jobs\VerifyServerDeletedJob::class,
     ],
 ];

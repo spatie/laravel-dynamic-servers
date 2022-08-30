@@ -31,7 +31,6 @@ class VerifyServerStoppedJob implements ShouldQueue, ShouldBeUnique
         try {
             if ($this->server->provider()->hasBeenStopped()) {
                 $this->server->markAs(ServerStatus::Stopped);
-
                 event(new ServerStoppedEvent($this->server));
 
                 $deleteServerJob = config()->dynamicServerJobClass('delete_server');

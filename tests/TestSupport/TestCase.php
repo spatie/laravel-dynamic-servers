@@ -4,6 +4,7 @@ namespace Spatie\DynamicServers\Tests\TestSupport;
 
 use Dotenv\Dotenv;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Queue;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\DynamicServers\DynamicServersServiceProvider;
 use Spatie\LaravelData\LaravelDataServiceProvider;
@@ -47,5 +48,12 @@ class TestCase extends Orchestra
         $dotEnv = Dotenv::createImmutable(__DIR__.'/../..');
 
         $dotEnv->load();
+    }
+
+    protected function processQueuedJobs()
+    {
+        foreach (Queue::pushedJobs() as $job) {
+            app()->call([$job[0]['job'], 'handle']);
+        }
     }
 }

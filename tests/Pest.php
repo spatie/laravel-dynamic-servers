@@ -17,9 +17,4 @@ function getStub(string $name, array $overrides = []): array
     return $properties;
 }
 
-function processQueuedJobs()
-{
-    foreach (Queue::pushedJobs() as $job) {
-        app()->call([$job[0]['job'], 'handle']);
-    }
-}
+

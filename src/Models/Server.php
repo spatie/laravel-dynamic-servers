@@ -31,8 +31,13 @@ class Server extends Model
     public static function booted()
     {
         Server::creating(function (Server $server) {
-            $server->status = ServerStatus::New;
-            $server->meta = [];
+            if (is_null($server->status)) {
+                $server->status = ServerStatus::New;
+            }
+
+            if (empty($server->meta)) {
+                $server->meta = [];
+            }
         });
     }
 
@@ -57,7 +62,7 @@ class Server extends Model
             throw CannotStopServer::wrongStatus($this);
         }
 
-        $deleteServerJobClass = config()->dynamicServerJobClass('delete_server');
+        $deleteServerJobClass = config()->dynamicServerJobClass('stop_server');
 
         dispatch(new $deleteServerJobClass($this));
 

@@ -45,13 +45,14 @@ it('can start a server', function() {
     Queue::assertPushed(CreateServerJob::class);
     expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
 
-    processQueuedJobs();
-    Queue::assertPushed(VerifyServerStartedJob::class);
+    $this->processQueuedJobs();
+    Queue::assertPushed(VerifyServerStartedJob::class, 1);
     expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
 
-    processQueuedJobs();
+    $this->processQueuedJobs();
     expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
 
-    processQueuedJobs();
+    $this->processQueuedJobs();
+    ray($this->server->refresh());
     expect($this->server->refresh()->status)->toBe(ServerStatus::Running);
 });
