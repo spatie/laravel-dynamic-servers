@@ -11,8 +11,7 @@ class DynamicServers
     protected ?Closure $determineServerCountUsing = null;
 
     /**
-     * @param Closure(DynamicServers): void $determineServerCountUsing
-     *
+     * @param  Closure(DynamicServers): void  $determineServerCountUsing
      * @return void
      */
     public function determineServerCount(Closure $determineServerCountUsing): self
@@ -37,7 +36,7 @@ class DynamicServers
             ->status(ServerStatus::Starting, ServerStatus::Running)
             ->count();
 
-        if($startingAndRunningServerCount < $desiredCount) {
+        if ($startingAndRunningServerCount < $desiredCount) {
             $extraServersNeeded = $desiredCount - $startingAndRunningServerCount;
 
             $this->increaseCount($extraServersNeeded);

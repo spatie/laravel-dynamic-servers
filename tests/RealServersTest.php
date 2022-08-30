@@ -3,7 +3,6 @@
 use Spatie\DynamicServers\Models\Server;
 
 it('can work with servers', function () {
-
     /** @var Server $server */
     $server = Server::create([
         'name' => 'my new server',

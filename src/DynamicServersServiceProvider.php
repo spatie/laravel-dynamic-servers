@@ -5,7 +5,6 @@ namespace Spatie\DynamicServers;
 use Spatie\DynamicServers\Commands\ListDynamicServersCommand;
 use Spatie\DynamicServers\Commands\MonitorDynamicServersCommand;
 use Spatie\DynamicServers\Support\DynamicServers;
-use Spatie\Health\Health;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
