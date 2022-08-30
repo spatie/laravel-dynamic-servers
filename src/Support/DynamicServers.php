@@ -22,7 +22,7 @@ class DynamicServers
         return $this;
     }
 
-    public function determineNow(): self
+    public function monitor(): self
     {
         if (is_null($this->determineServerCountUsing)) {
             return $this;
