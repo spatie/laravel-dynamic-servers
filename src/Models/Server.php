@@ -3,6 +3,7 @@
 namespace Spatie\DynamicServers\Models;
 
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -132,5 +133,12 @@ class Server extends Model
     public function option(string $key): mixed
     {
         return Config::providerOption($this->provider, $key);
+    }
+
+
+
+    public function scopeStatus(Builder $query, ServerStatus ...$statuses): void
+    {
+        $query->whereIn('status', $statuses);
     }
 }
