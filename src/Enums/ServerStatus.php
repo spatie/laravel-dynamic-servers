@@ -6,7 +6,7 @@ enum ServerStatus: string
 {
     case New = 'new';
     case Starting = 'starting';
-    case Running = 'Running';
+    case Running = 'running';
     case Paused = 'paused';
     case Stopping = 'stopping';
     case Stopped = 'stopped';
