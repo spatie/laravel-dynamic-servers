@@ -28,7 +28,9 @@ class CreateServerJob implements ShouldQueue, ShouldBeUnique
 
     public function handle()
     {
+        info('handle create server');
         try {
+            info('calling create server');
             $this->server->provider()->createServer();
         } catch (Exception $exception) {
             $this->server->markAsErrored($exception);
@@ -40,9 +42,12 @@ class CreateServerJob implements ShouldQueue, ShouldBeUnique
 
         event(new CreatingServerEvent($this->server));
 
+        info('dispatching verify server started');
         /** @var class-string<VerifyServerStartedJob> $verifyServerStartedJob */
         $verifyServerStartedJob = Config::dynamicServerJobClass('verify_server_started');
 
         dispatch(new $verifyServerStartedJob($this->server));
+
+        info('dispatched verify server started');
     }
 }

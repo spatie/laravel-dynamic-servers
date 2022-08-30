@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Events\ServerRunningEvent;
 use Spatie\DynamicServers\Models\Server;
@@ -28,8 +29,10 @@ class VerifyServerStartedJob implements ShouldQueue, ShouldBeUnique
 
     public function handle()
     {
+        info('In verify server started');
         try {
             if ($this->server->provider()->hasStarted()) {
+                info('running');
                 $this->server->markAs(ServerStatus::Running);
 
                 event(new ServerRunningEvent($this->server));
@@ -37,8 +40,10 @@ class VerifyServerStartedJob implements ShouldQueue, ShouldBeUnique
                 return;
             }
 
-            $this->release(60);
+            info('releasing because not started');
+            $this->release(10);
         } catch (Exception $exception) {
+            info('erroring');
             $this->server->markAsErrored($exception);
 
             report($exception);
