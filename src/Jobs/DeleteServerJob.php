@@ -14,19 +14,8 @@ use Spatie\DynamicServers\Events\DeletingServerEvent;
 use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\Config;
 
-class DeleteServerJob implements ShouldQueue, ShouldBeUnique
+class DeleteServerJob extends DynamicServerJob
 {
-    use Dispatchable;
-    use InteractsWithQueue;
-    use Queueable;
-    use SerializesModels;
-
-    public $deleteWhenMissingModels = true;
-
-    public function __construct(public Server $server)
-    {
-    }
-
     public function handle()
     {
         try {

@@ -46,7 +46,6 @@ class Server extends Model
 
     public function start(): self
     {
-        info('starting server');
         if ($this->status !== ServerStatus::New) {
             throw CannotStartServer::wrongStatus($this);
         }
@@ -54,7 +53,6 @@ class Server extends Model
         /** @var class-string<CreateServerJob> $createServerJobClass */
         $createServerJobClass = Config::dynamicServerJobClass('create_server');
 
-        info('dispatching create server');
         dispatch(new $createServerJobClass($this));
 
         $this->markAs(ServerStatus::Starting);

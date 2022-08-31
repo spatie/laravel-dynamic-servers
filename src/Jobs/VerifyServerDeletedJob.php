@@ -13,19 +13,8 @@ use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Events\ServerDeletedEvent;
 use Spatie\DynamicServers\Models\Server;
 
-class VerifyServerDeletedJob implements ShouldQueue, ShouldBeUnique
+class VerifyServerDeletedJob extends DynamicServerJob
 {
-    use Dispatchable;
-    use InteractsWithQueue;
-    use Queueable;
-    use SerializesModels;
-
-    public $deleteWhenMissingModels = true;
-
-    public function __construct(public Server $server)
-    {
-    }
-
     public function handle()
     {
         try {
@@ -37,11 +26,16 @@ class VerifyServerDeletedJob implements ShouldQueue, ShouldBeUnique
                 return;
             }
 
-            $this->release(60);
+            $this->release(20);
         } catch (Exception $exception) {
             $this->server->markAsErrored($exception);
 
             report($exception);
         }
+    }
+
+    public function retryUntil()
+    {
+        return now()->addMinutes(10);
     }
 }

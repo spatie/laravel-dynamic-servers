@@ -13,19 +13,8 @@ use Spatie\DynamicServers\Events\StoppingServerEvent;
 use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\Config;
 
-class StopServerJob implements ShouldQueue, ShouldBeUnique
+class StopServerJob extends DynamicServerJob
 {
-    use Dispatchable;
-    use InteractsWithQueue;
-    use Queueable;
-    use SerializesModels;
-
-    public $deleteWhenMissingModels = true;
-
-    public function __construct(public Server $server)
-    {
-    }
-
     public function handle()
     {
         try {

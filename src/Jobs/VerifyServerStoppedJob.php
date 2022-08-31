@@ -14,19 +14,8 @@ use Spatie\DynamicServers\Events\ServerStoppedEvent;
 use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\Config;
 
-class VerifyServerStoppedJob implements ShouldQueue, ShouldBeUnique
+class VerifyServerStoppedJob extends DynamicServerJob
 {
-    use Dispatchable;
-    use InteractsWithQueue;
-    use Queueable;
-    use SerializesModels;
-
-    public $deleteWhenMissingModels = true;
-
-    public function __construct(public Server $server)
-    {
-    }
-
     public function handle()
     {
         try {
@@ -42,11 +31,16 @@ class VerifyServerStoppedJob implements ShouldQueue, ShouldBeUnique
                 return;
             }
 
-            $this->release(60);
+            $this->release(20);
         } catch (Exception $exception) {
             $this->server->markAsErrored($exception);
 
             report($exception);
         }
+    }
+
+    public function retryUntil()
+    {
+        return now()->addMinutes(10);
     }
 }
