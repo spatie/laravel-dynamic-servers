@@ -21,7 +21,8 @@ class TestCase extends Orchestra
 
         parent::setUp();
 
-        $this->setUpUpCloudTestProvider();
+        $this
+            ->setUpUpCloudTestProvider();
 
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Spatie\\DynamicServers\\Database\\Factories\\'.class_basename($modelName).'Factory'
@@ -65,6 +66,14 @@ class TestCase extends Orchestra
 
     protected function setUpUpCloudTestProvider(): self
     {
+        $providerConfig = config('dynamic-servers.providers');
+        $providerConfig['other_provider'] = ['class' => 'Dummy value'];
+
+        config()->set('dynamic-servers.providers', $providerConfig);
+
+        DynamicServers::registerServerType(ServerType::new('other')->provider('other_provider'));
+
+        /*
         DynamicServers::registerServerType(
             ServerType::new('up_cloud')
                 ->provider('up_cloud')
@@ -89,6 +98,7 @@ class TestCase extends Orchestra
                     ];
                 })
         );
+        */
 
         return $this;
     }

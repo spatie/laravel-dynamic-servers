@@ -1,12 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Str;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Exceptions\CannotStartServer;
 use Spatie\DynamicServers\Exceptions\InvalidProvider;
+use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Jobs\CreateServerJob;
 use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
+use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 
 beforeEach(function () {
     /** @var Server server */
@@ -47,7 +50,7 @@ it('can mark a server as errored', function () {
 });
 
 it('can get a provider', function () {
-    expect($this->server->provider())->toBeInstanceOf(ServerProvider::class);
+    expect($this->server->serverProvider())->toBeInstanceOf(ServerProvider::class);
 });
 
 it('will throw an exception when using an unknown provider', function () {
@@ -55,7 +58,7 @@ it('will throw an exception when using an unknown provider', function () {
         'provider' => 'unknown_provider',
     ]);
 
-    expect($this->server->provider());
+    expect($this->server->serverProvider());
 })->throws(InvalidProvider::class);
 
 it('will dispatch a job to start a server', function () {
@@ -71,3 +74,46 @@ it('will throw an exception if the server is not in the right state to be starte
 
     $this->server->start();
 })->throws(CannotStartServer::class);
+
+it('can prepare a server for the default provider', function () {
+    $server = Server::prepareNew();
+
+    expect($server)
+        ->type->toBe('default')
+        ->status->toBe(ServerStatus::New);
+});
+
+it('can prepare a server for another provider', function () {
+    $server = Server::prepareNew('other');
+
+    expect($server)
+        ->type->toBe('other')
+        ->provider->toBe('other_provider')
+        ->status->toBe(ServerStatus::New);
+});
+
+it('can generate a new name for a server', function () {
+    $server = Server::prepareNew();
+    expect($server->name)->toBe('dynamic-server-default-2');
+
+    $server = Server::prepareNew();
+    expect($server->name)->toBe('dynamic-server-default-3');
+});
+
+it('will copy the configuration of a server type to the configuration attribute', function () {
+    DynamicServers::registerServerType(
+        ServerType::new('big')
+            ->provider('other_provider')
+            ->configuration(function (Server $server) {
+                return [
+                    'hostname' => 'The servername: ' . Str::slug($server->name),
+                ];
+            })
+    );
+
+    $server = Server::prepareNew('big');
+
+    expect($server->refresh())->configuration->toBe([
+        'hostname' => 'The servername: pending-server-name',
+    ]);
+});

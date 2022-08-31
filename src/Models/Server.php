@@ -28,6 +28,7 @@ class Server extends Model
     public $table = 'dynamic_servers';
 
     public $casts = [
+        'configuration' => 'array',
         'status_updated_at' => 'datetime',
         'status' => ServerStatus::class,
         'meta' => AsArrayObject::class,
@@ -54,6 +55,7 @@ class Server extends Model
             }
 
             if (empty($server->configuration)) {
+
                 $configuration = $server->serverType()->getConfiguration($server);
             }
 
@@ -69,11 +71,15 @@ class Server extends Model
         return DynamicServers::getServerType($this->type);
     }
 
-    public static function prepare(string $type = 'default', string $name = null): Server
+    public static function prepareNew(string $type = 'default', string $name = null): Server
     {
+        /** @var ServerType $serverType */
+        $serverType = DynamicServers::getServerType($type);
+
         return Server::create([
             'name' => $name ?? 'pending-server-name',
             'type' => $type,
+            'provider' => $serverType->providerName,
         ]);
     }
 
@@ -119,7 +125,7 @@ class Server extends Model
         return $this;
     }
 
-    public function provider(): ServerProvider
+    public function serverProvider(): ServerProvider
     {
         /** @var class-string<ServerProvider> $providerClassName */
         $providerClassName = config("dynamic-servers.providers.{$this->provider}.class") ?? '';

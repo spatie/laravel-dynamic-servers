@@ -12,7 +12,7 @@ class DeleteServerJob extends DynamicServerJob
     public function handle()
     {
         try {
-            $this->server->provider()->deleteServer();
+            $this->server->serverProvider()->deleteServer();
 
             $this->server->markAs(ServerStatus::Deleting);
         } catch (Exception $exception) {

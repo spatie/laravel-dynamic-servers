@@ -11,7 +11,7 @@ class CreateServerJob extends DynamicServerJob
     public function handle()
     {
         try {
-            $this->server->provider()->createServer();
+            $this->server->serverProvider()->createServer();
         } catch (Exception $exception) {
             $this->server->markAsErrored($exception);
 

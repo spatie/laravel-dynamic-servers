@@ -3,16 +3,9 @@
 use Illuminate\Support\Facades\Queue;
 use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Models\Server;
-use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 
 beforeEach(function () {
     Queue::fake();
-
-    $providerConfig = config('dynamic-servers.providers');
-    $providerConfig['other_provider'] = ['class' => 'Dummy value'];
-    config()->set('dynamic-servers.providers', $providerConfig);
-
-    DynamicServers::registerServerType(ServerType::new('other')->provider('other_provider'));
 });
 
 it('can increase the number of servers by 1', function (string $serverType) {

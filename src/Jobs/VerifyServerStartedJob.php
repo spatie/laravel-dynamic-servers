@@ -11,7 +11,7 @@ class VerifyServerStartedJob extends DynamicServerJob
     public function handle()
     {
         try {
-            if ($this->server->provider()->hasStarted()) {
+            if ($this->server->serverProvider()->hasStarted()) {
                 $this->server->markAs(ServerStatus::Running);
 
                 event(new ServerRunningEvent($this->server));

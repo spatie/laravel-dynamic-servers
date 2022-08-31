@@ -61,7 +61,7 @@ class DynamicServers
     public function increaseCount(int $count = 1, string $type = 'default'): self
     {
         foreach (range(1, $count) as $i) {
-            Server::prepare($type)->start();
+            Server::prepareNew($type)->start();
         }
 
         return $this;
@@ -102,7 +102,7 @@ class DynamicServers
         return $this;
     }
 
-    public function serverTypesNames(): array
+    public function serverTypeNames(): array
     {
         return app(ServerTypes::class)->allNames();
     }

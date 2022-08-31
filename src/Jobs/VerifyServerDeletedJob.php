@@ -11,7 +11,7 @@ class VerifyServerDeletedJob extends DynamicServerJob
     public function handle()
     {
         try {
-            if ($this->server->provider()->hasBeenDeleted()) {
+            if ($this->server->serverProvider()->hasBeenDeleted()) {
                 $this->server->markAs(ServerStatus::Deleted);
 
                 event(new ServerDeletedEvent($this->server));

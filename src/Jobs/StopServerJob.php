@@ -11,7 +11,7 @@ class StopServerJob extends DynamicServerJob
     public function handle()
     {
         try {
-            $this->server->provider()->stopServer();
+            $this->server->serverProvider()->stopServer();
         } catch (Exception $exception) {
             $this->server->markAsErrored($exception);
 
