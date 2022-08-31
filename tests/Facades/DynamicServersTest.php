@@ -60,7 +60,7 @@ it('can ensure a given number of servers', function (string $serverType) {
     expect(Server::startingOrRunning()->type($serverType)->get())->toHaveCount(2);
 })->with('serverTypes');
 
-it('will not destroy servers of other types', function() {
+it('will not destroy servers of other types', function () {
     Server::factory()->running()->count(3)->create(['type' => 'default']);
     Server::factory()->running()->count(3)->create(['type' => 'other']);
 
