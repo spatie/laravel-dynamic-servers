@@ -13,7 +13,7 @@ class DynamicServers
     protected ?Closure $determineServerCountUsing = null;
 
     /**
-     * @param Closure(DynamicServers): void  $determineServerCountUsing
+     * @param  Closure(DynamicServers): void  $determineServerCountUsing
      * @return void
      */
     public function determineServerCount(Closure $determineServerCountUsing): self
@@ -80,7 +80,7 @@ class DynamicServers
             ->status(ServerStatus::Running)
             ->limit($by)
             ->get()
-            ->each(fn(Server $server) => $server->stop());
+            ->each(fn (Server $server) => $server->stop());
 
         return $this;
     }

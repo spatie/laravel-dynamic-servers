@@ -30,7 +30,7 @@ class Config
 
     public static function defaultProviderName(): string
     {
-        $providerName =  array_key_first(config('dynamic-servers.providers'));
+        $providerName = array_key_first(config('dynamic-servers.providers'));
 
         if (empty($providerName)) {
             throw CouldNotDetermineDefaultProviderName::make();
