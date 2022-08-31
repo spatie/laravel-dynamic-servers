@@ -12,7 +12,7 @@ use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 
 beforeEach(function () {
-    /** @var Server server */
+    /** @var Server $server */
     $this->server = Server::factory()->create();
 
     Queue::fake();
