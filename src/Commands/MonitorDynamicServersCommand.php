@@ -12,7 +12,7 @@ class MonitorDynamicServersCommand extends Command
 
     public function handle()
     {
-        $this->info("Monitoring dynamic servers");
+        $this->info('Monitoring dynamic servers');
 
         $initialServerCounts = Server::countPerStatus();
 
@@ -28,8 +28,8 @@ class MonitorDynamicServersCommand extends Command
     protected function summarizeDifference(array $initialCounts, array $currentCounts): self
     {
         $differences = collect($initialCounts)
-            ->map(fn(int $count, string $status) => $currentCounts[$status] - $count)
-            ->reject(fn(int $count) => $count === 0);
+            ->map(fn (int $count, string $status) => $currentCounts[$status] - $count)
+            ->reject(fn (int $count) => $count === 0);
 
         if ($differences->isEmpty()) {
             $this->components->info('No servers started or stopped');
@@ -37,7 +37,7 @@ class MonitorDynamicServersCommand extends Command
             return $this;
         }
 
-        $differences->each(function(int $count, string $status) {
+        $differences->each(function (int $count, string $status) {
             $this->components->twoColumnDetail($status, $count);
         });
 

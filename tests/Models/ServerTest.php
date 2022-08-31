@@ -106,7 +106,7 @@ it('will copy the configuration of a server type to the configuration attribute'
             ->provider('other_provider')
             ->configuration(function (Server $server) {
                 return [
-                    'hostname' => 'The servername: ' . Str::slug($server->name),
+                    'hostname' => 'The servername: '.Str::slug($server->name),
                 ];
             })
     );

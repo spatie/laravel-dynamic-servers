@@ -2,7 +2,6 @@
 
 namespace Spatie\DynamicServers\Models;
 
-use _PHPStan_9a6ded56a\Composer\XdebugHandler\Status;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
@@ -134,7 +133,7 @@ class Server extends Model
         /** @var class-string<ServerProvider> $providerClassName */
         $providerClassName = config("dynamic-servers.providers.{$this->provider}.class") ?? '';
 
-        if (!is_a($providerClassName, ServerProvider::class, true)) {
+        if (! is_a($providerClassName, ServerProvider::class, true)) {
             throw InvalidProvider::make($this);
         }
 
@@ -214,7 +213,7 @@ class Server extends Model
             ->whereIn('status', $allStatuses->toArray())
             ->groupBy('status')
             ->get()
-            ->mapWithKeys(fn(object $result) => [$result->status => $result->count])
+            ->mapWithKeys(fn (object $result) => [$result->status => $result->count])
             ->toArray();
 
         return $allStatuses
