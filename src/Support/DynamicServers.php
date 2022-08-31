@@ -33,7 +33,7 @@ class DynamicServers
     public function ensure(int $desiredCount): self
     {
         $startingAndRunningServerCount = Server::query()
-            ->status(ServerStatus::Starting, ServerStatus::Running)
+            ->startingOrRunning()
             ->count();
 
         if ($startingAndRunningServerCount < $desiredCount) {
@@ -75,7 +75,7 @@ class DynamicServers
     public function decreaseCount(int $by = 1): self
     {
         Server::query()
-            ->where('status', ServerStatus::Running)
+            ->status(ServerStatus::Running)
             ->limit($by)
             ->get()
             ->each(function (Server $server) {
