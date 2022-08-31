@@ -68,7 +68,7 @@ class TestCase extends Orchestra
         DynamicServers::registerServerType(
             ServerType::new('up_cloud')
                 ->provider('up_cloud')
-                ->configuration(function(Server $server) {
+                ->configuration(function (Server $server) {
                     return [
                         'server' => [
                             'zone' => 'de-fra1',

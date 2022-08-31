@@ -18,7 +18,6 @@ use Spatie\DynamicServers\Jobs\StopServerJob;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\Config;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
-use Spatie\DynamicServers\Support\ServerTypes\ServerTypes;
 
 class Server extends Model
 {
@@ -125,7 +124,7 @@ class Server extends Model
         /** @var class-string<ServerProvider> $providerClassName */
         $providerClassName = config("dynamic-servers.providers.{$this->provider}.class") ?? '';
 
-        if (!is_a($providerClassName, ServerProvider::class, true)) {
+        if (! is_a($providerClassName, ServerProvider::class, true)) {
             throw InvalidProvider::make($this);
         }
 

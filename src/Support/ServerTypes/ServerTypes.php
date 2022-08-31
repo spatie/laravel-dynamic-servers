@@ -10,7 +10,8 @@ class ServerTypes
     /** @var Collection<ServerType> */
     protected Collection $serverTypes;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->serverTypes = collect();
     }
 

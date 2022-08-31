@@ -10,7 +10,7 @@ class ServerTypeDoesNotExist extends Exception
     public static function make(string $serverTypeName): self
     {
         $availableNames = collect(DynamicServers::serverTypeNames())
-            ->map(function(string $name) {
+            ->map(function (string $name) {
                 return "`{$name}`";
             })
             ->join(', ', ' and ');

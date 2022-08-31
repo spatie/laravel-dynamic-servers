@@ -10,7 +10,9 @@ use Spatie\DynamicServers\Support\Config;
 class ServerType
 {
     public string $name;
+
     public string $providerName;
+
     public array|Closure $configuration;
 
     public static function new(string $name): self
@@ -22,8 +24,7 @@ class ServerType
         string $name,
         string $providerName = null,
         string $configuration = null
-    )
-    {
+    ) {
         $this->name = $name;
 
         $this->providerName = $providerName ?? Config::defaultProviderName();

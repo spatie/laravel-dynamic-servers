@@ -13,7 +13,7 @@ class MonitorDynamicServersCommand extends Command
     {
         DynamicServers::monitor();
 
-        DynamicServers::determineServerCount(function(DynamicServers $servers) {
+        DynamicServers::determineServerCount(function (DynamicServers $servers) {
             $servers->ensure(2, 'big');
         });
 
