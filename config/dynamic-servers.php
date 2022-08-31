@@ -10,6 +10,16 @@ return [
                 'disk_image' => env('UP_CLOUD_DISK_IMAGE_UUID'),
             ],
         ],
+        'digital_ocean' => [
+            'class' => Spatie\DynamicServers\ServerProviders\DigitalOcean\DigitalOcean::class,
+            'options' => [
+                'token' => env('DIGITAL_OCEAN_TOKEN'),
+                'vpc_uuid' => env('DIGITAL_VPC_UUID'),
+                'region' => env('DIGITAL_OCEAN_REGION', 'nyc3'),
+                'size' => env('DIGITAL_OCEAN_SIZE', 's-1vcpu-1gb'),
+                'image' => env('DIGITAL_OCEAN_IMAGE', 'ubuntu-20-04-x64'),
+            ],
+        ],
     ],
 
     'jobs' => [
