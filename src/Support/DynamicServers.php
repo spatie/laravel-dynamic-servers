@@ -36,7 +36,7 @@ class DynamicServers
     {
         $startingAndRunningServerCount = Server::query()
             ->where('type', $type)
-            ->status(ServerStatus::Starting, ServerStatus::Running)
+            ->startingOrRunning()
             ->count();
 
         if ($startingAndRunningServerCount < $desiredCount) {
@@ -77,6 +77,7 @@ class DynamicServers
         Server::query()
             ->where('status', ServerStatus::Running)
             ->where('type', $type)
+            ->status(ServerStatus::Running)
             ->limit($by)
             ->get()
             ->each(fn(Server $server) => $server->stop());
