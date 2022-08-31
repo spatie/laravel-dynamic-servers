@@ -49,6 +49,5 @@ class ListDynamicServersCommand extends Command
         $this->line('');
 
         return self::SUCCESS;
-
     }
 }
