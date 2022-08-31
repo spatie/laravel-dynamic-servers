@@ -87,7 +87,7 @@ class DigitalOcean extends ServerProvider
             throw CannotGetDigitalOceanServerDetails::make($this->server, $response);
         }
 
-        return DigitalOceanServer::fromApiPayload($response->json('server'));
+        return DigitalOceanServer::fromApiPayload($response->json('droplet'));
     }
 
     protected function request(): PendingRequest
