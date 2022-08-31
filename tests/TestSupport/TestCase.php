@@ -22,7 +22,8 @@ class TestCase extends Orchestra
         parent::setUp();
 
         $this
-            ->setUpUpCloudTestProvider();
+            ->setUpUpCloudTestProvider()
+            ->setUpDigitalOceanTestProvider();
 
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Spatie\\DynamicServers\\Database\\Factories\\'.class_basename($modelName).'Factory'
@@ -99,6 +100,13 @@ class TestCase extends Orchestra
                 })
         );
         */
+
+        return $this;
+    }
+
+    protected function setUpDigitalOceanTestProvider(): self
+    {
+        // TODO: Set up DigitalOcean test case data
 
         return $this;
     }
