@@ -2,12 +2,15 @@
 
 namespace Spatie\DynamicServers\Models;
 
+use _PHPStan_9a6ded56a\Composer\XdebugHandler\Status;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Exceptions\CannotStartServer;
 use Spatie\DynamicServers\Exceptions\CannotStopServer;
@@ -22,6 +25,7 @@ use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 class Server extends Model
 {
     use HasFactory;
+    use MassPrunable;
 
     public $guarded = [];
 
@@ -39,6 +43,7 @@ class Server extends Model
         Server::creating(function (Server $server) {
             if (is_null($server->status)) {
                 $server->status = ServerStatus::New;
+                $server->status_updated_at = now();
             }
 
             if (empty($server->meta)) {
@@ -129,7 +134,7 @@ class Server extends Model
         /** @var class-string<ServerProvider> $providerClassName */
         $providerClassName = config("dynamic-servers.providers.{$this->provider}.class") ?? '';
 
-        if (! is_a($providerClassName, ServerProvider::class, true)) {
+        if (!is_a($providerClassName, ServerProvider::class, true)) {
             throw InvalidProvider::make($this);
         }
 
@@ -189,5 +194,33 @@ class Server extends Model
     protected function generateName(): string
     {
         return "dynamic-server-{$this->type}-{$this->id}";
+    }
+
+    public function prunable(): Builder
+    {
+        $days = config('dynamic-servers.prune_stopped_servers_from_local_db_after_days');
+
+        return static::query()
+            ->status(ServerStatus::Stopped, ServerStatus::Errored)
+            ->where('status_updated_at', '<=', now()->addDays($days));
+    }
+
+    public static function countPerStatus(): array
+    {
+        $allStatuses = collect(ServerStatus::cases())->map->value;
+
+        $actualStatuses = DB::table((new self())->getTable())
+            ->select('status', DB::raw('count(*) as count'))
+            ->whereIn('status', $allStatuses->toArray())
+            ->groupBy('status')
+            ->get()
+            ->mapWithKeys(fn(object $result) => [$result->status => $result->count])
+            ->toArray();
+
+        return $allStatuses
+            ->mapWithKeys(function (string $status) use ($actualStatuses) {
+                return [$status => $actualStatuses[$status] ?? 0];
+            })
+            ->toArray();
     }
 }

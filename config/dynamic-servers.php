@@ -20,4 +20,12 @@ return [
         'delete_server' => Spatie\DynamicServers\Jobs\DeleteServerJob::class,
         'verify_server_deleted' => Spatie\DynamicServers\Jobs\VerifyServerDeletedJob::class,
     ],
+
+    /*
+     * The dynamic_servers table holds records of all dynamic servers.
+     *
+     * Using Laravels prune command all stopped servers will be deleted
+     * after the given amount of days.
+     */
+    'prune_stopped_servers_from_local_db_after_days' => 1,
 ];

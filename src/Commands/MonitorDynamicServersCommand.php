@@ -4,6 +4,7 @@ namespace Spatie\DynamicServers\Commands;
 
 use Illuminate\Console\Command;
 use Spatie\DynamicServers\Facades\DynamicServers;
+use Spatie\DynamicServers\Models\Server;
 
 class MonitorDynamicServersCommand extends Command
 {
@@ -11,12 +12,35 @@ class MonitorDynamicServersCommand extends Command
 
     public function handle()
     {
+        $this->info("Monitoring dynamic servers");
+
+        $initialServerCounts = Server::countPerStatus();
+
         DynamicServers::monitor();
 
-        DynamicServers::determineServerCount(function (DynamicServers $servers) {
-            $servers->ensure(2, 'big');
+        $currentServerCounts = Server::countPerStatus();
+
+        $this->summarizeDifference($initialServerCounts, $currentServerCounts);
+
+        return self::SUCCESS;
+    }
+
+    protected function summarizeDifference(array $initialCounts, array $currentCounts): self
+    {
+        $differences = collect($initialCounts)
+            ->map(fn(int $count, string $status) => $currentCounts[$status] - $count)
+            ->reject(fn(int $count) => $count === 0);
+
+        if ($differences->isEmpty()) {
+            $this->components->info('No servers started or stopped');
+
+            return $this;
+        }
+
+        $differences->each(function(int $count, string $status) {
+            $this->components->twoColumnDetail($status, $count);
         });
 
-        $this->info('All done...');
+        return $this;
     }
 }

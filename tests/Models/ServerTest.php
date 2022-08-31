@@ -106,7 +106,7 @@ it('will copy the configuration of a server type to the configuration attribute'
             ->provider('other_provider')
             ->configuration(function (Server $server) {
                 return [
-                    'hostname' => 'The servername: '.Str::slug($server->name),
+                    'hostname' => 'The servername: ' . Str::slug($server->name),
                 ];
             })
     );
@@ -115,5 +115,22 @@ it('will copy the configuration of a server type to the configuration attribute'
 
     expect($server->refresh())->configuration->toBe([
         'hostname' => 'The servername: pending-server-name',
+    ]);
+});
+
+it('can get the server count by status', function () {
+    Server::factory()->running()->count(2)->create();
+    Server::factory()->stopped()->count(2)->create();
+
+    expect(Server::countPerStatus())->toBe([
+        'new' => 1,
+        'starting' => 0,
+        'running' => 2,
+        'paused' => 0,
+        'stopping' => 0,
+        'stopped' => 2,
+        'deleting' => 0,
+        'deleted' => 0,
+        'errored' => 0,
     ]);
 });

@@ -32,4 +32,13 @@ class ServerFactory extends Factory
             ];
         });
     }
+
+    public function stopped(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => ServerStatus::Stopped->value,
+            ];
+        });
+    }
 }
