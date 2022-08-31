@@ -13,7 +13,7 @@ class ServerType
     public string $providerName;
     public array|Closure $configuration;
 
-    public static function create(string $name): self
+    public static function new(string $name): self
     {
         return new self($name);
     }

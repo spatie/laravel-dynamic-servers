@@ -66,7 +66,7 @@ class TestCase extends Orchestra
     protected function setUpUpCloudTestProvider(): self
     {
         DynamicServers::registerServerType(
-            ServerType::create('up_cloud')
+            ServerType::new('up_cloud')
                 ->provider('up_cloud')
                 ->configuration(function(Server $server) {
                     return [

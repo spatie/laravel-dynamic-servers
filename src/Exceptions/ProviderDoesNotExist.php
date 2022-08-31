@@ -4,12 +4,13 @@ namespace Spatie\DynamicServers\Exceptions;
 
 use Exception;
 use Spatie\DynamicServers\Facades\DynamicServers;
+use Spatie\DynamicServers\Support\Config;
 
 class ProviderDoesNotExist extends Exception
 {
     public static function make(string $providerName): self
     {
-        $availableNames = collect(DynamicServers::serverTypeNames())
+        $availableNames = collect(Config::providerNames())
             ->map(function(string $name) {
                 return "`{$name}`";
             })

@@ -177,6 +177,11 @@ class Server extends Model
         $query->status(ServerStatus::Starting, ServerStatus::Running);
     }
 
+    public function scopeType(Builder $query, string $type): void
+    {
+        $query->where('type', $type);
+    }
+
     protected function generateName(): string
     {
         return "dynamic-server-{$this->type}-{$this->id}";

@@ -38,7 +38,7 @@ class DynamicServersServiceProvider extends PackageServiceProvider
 
     protected function registerDefaultServerType(): self
     {
-        $defaultType = ServerType::create('default')
+        $defaultType = ServerType::new('default')
             ->provider(Config::defaultProviderName());
 
         app(DynamicServers::class)->registerServerType($defaultType);
