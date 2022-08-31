@@ -55,7 +55,6 @@ class Server extends Model
             }
 
             if (empty($server->configuration)) {
-
                 $configuration = $server->serverType()->getConfiguration($server);
             }
 
