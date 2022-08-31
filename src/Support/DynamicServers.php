@@ -5,13 +5,15 @@ namespace Spatie\DynamicServers\Support;
 use Closure;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Models\Server;
+use Spatie\DynamicServers\Support\ServerTypes\ServerType;
+use Spatie\DynamicServers\Support\ServerTypes\ServerTypes;
 
 class DynamicServers
 {
     protected ?Closure $determineServerCountUsing = null;
 
     /**
-     * @param  Closure(DynamicServers): void  $determineServerCountUsing
+     * @param Closure(DynamicServers): void  $determineServerCountUsing
      * @return void
      */
     public function determineServerCount(Closure $determineServerCountUsing): self
@@ -30,16 +32,17 @@ class DynamicServers
         ($this->determineServerCountUsing)($this);
     }
 
-    public function ensure(int $desiredCount): self
+    public function ensure(int $desiredCount, string $type = 'default'): self
     {
         $startingAndRunningServerCount = Server::query()
+            ->where('type', $type)
             ->status(ServerStatus::Starting, ServerStatus::Running)
             ->count();
 
         if ($startingAndRunningServerCount < $desiredCount) {
             $extraServersNeeded = $desiredCount - $startingAndRunningServerCount;
 
-            $this->increaseCount($extraServersNeeded);
+            $this->increaseCount($extraServersNeeded, $type);
 
             return $this;
         }
@@ -47,7 +50,7 @@ class DynamicServers
         if ($startingAndRunningServerCount > $desiredCount) {
             $lessServersNeeded = $startingAndRunningServerCount - $desiredCount;
 
-            $this->decreaseCount($lessServersNeeded);
+            $this->decreaseCount($lessServersNeeded, $type);
 
             return $this;
         }
@@ -55,38 +58,51 @@ class DynamicServers
         return $this;
     }
 
-    public function increaseCount(int $count = 1): self
+    public function increaseCount(int $count = 1, string $type = 'default'): self
     {
         foreach (range(1, $count) as $i) {
-            Server::create([
-                'name' => 'automatically created server',
-                'provider' => 'up_cloud',
-            ])->start();
+            Server::prepare($type)->start();
         }
 
         return $this;
     }
 
-    public function increase(int $by = 1): self
+    public function increase(int $by = 1, string $type = 'default'): self
     {
-        return $this->increaseCount($by);
+        return $this->increaseCount($by, $type);
     }
 
-    public function decreaseCount(int $by = 1): self
+    public function decreaseCount(int $by = 1, string $type = 'default'): self
     {
         Server::query()
             ->where('status', ServerStatus::Running)
+            ->where('type', $type)
             ->limit($by)
             ->get()
-            ->each(function (Server $server) {
-                return $server->stop();
-            });
+            ->each(fn(Server $server) => $server->stop());
 
         return $this;
     }
 
-    public function decrease(int $by = 1): self
+    public function decrease(int $by = 1, string $type = 'default'): self
     {
-        return $this->decreaseCount($by);
+        return $this->decreaseCount($by, $type);
+    }
+
+    public function getServerType(string $serverType): ServerType
+    {
+        return app(ServerTypes::class)->find($serverType);
+    }
+
+    public function registerServerType(ServerType $serverType): self
+    {
+        app(ServerTypes::class)->register($serverType);
+
+        return $this;
+    }
+
+    public function serverTypesNames(): array
+    {
+        return app(ServerTypes::class)->allNames();
     }
 }

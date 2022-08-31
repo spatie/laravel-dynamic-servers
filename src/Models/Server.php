@@ -12,10 +12,13 @@ use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Exceptions\CannotStartServer;
 use Spatie\DynamicServers\Exceptions\CannotStopServer;
 use Spatie\DynamicServers\Exceptions\InvalidProvider;
+use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Jobs\CreateServerJob;
 use Spatie\DynamicServers\Jobs\StopServerJob;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\Config;
+use Spatie\DynamicServers\Support\ServerTypes\ServerType;
+use Spatie\DynamicServers\Support\ServerTypes\ServerTypes;
 
 class Server extends Model
 {
@@ -42,6 +45,37 @@ class Server extends Model
                 $server->meta = [];
             }
         });
+
+        Server::created(function (Server $server) {
+            $name = $server->name;
+            $configuration = $server->configuration;
+
+            if ($server->name === 'pending-server-name') {
+                $name = $server->generateName();
+            }
+
+            if (empty($server->configuration)) {
+                $configuration = $server->serverType()->getConfiguration($server);
+            }
+
+            $server->updateQuietly([
+                'name' => $name,
+                'configuration' => $configuration,
+            ]);
+        });
+    }
+
+    public function serverType(): ServerType
+    {
+        return DynamicServers::getServerType($this->type);
+    }
+
+    public static function prepare(string $type = 'default', string $name = null): Server
+    {
+        return Server::create([
+            'name' => $name ?? 'pending-server-name',
+            'type' => $type,
+        ]);
     }
 
     public function start(): self
@@ -91,7 +125,7 @@ class Server extends Model
         /** @var class-string<ServerProvider> $providerClassName */
         $providerClassName = config("dynamic-servers.providers.{$this->provider}.class") ?? '';
 
-        if (! is_a($providerClassName, ServerProvider::class, true)) {
+        if (!is_a($providerClassName, ServerProvider::class, true)) {
             throw InvalidProvider::make($this);
         }
 
@@ -141,5 +175,10 @@ class Server extends Model
     public function scopeStartingOrRunning(Builder $query): void
     {
         $query->status(ServerStatus::Starting, ServerStatus::Running);
+    }
+
+    protected function generateName(): string
+    {
+        return "dynamic-server-{$this->type}-{$this->id}";
     }
 }

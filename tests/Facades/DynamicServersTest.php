@@ -8,13 +8,13 @@ beforeEach(function () {
     Queue::fake();
 });
 
-it('can increase the numbers of servers by 1', function () {
+it('can increase the number of servers by 1', function () {
     DynamicServers::increase();
 
     expect(Server::startingOrRunning()->get())->toHaveCount(1);
 });
 
-it('can increase the numbers of servers by a given number', function () {
+it('can increase the number of servers by a given number', function () {
     DynamicServers::increase(3);
 
     expect(Server::startingOrRunning()->get())->toHaveCount(3);
