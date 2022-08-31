@@ -67,6 +67,21 @@ it('can ensure a given number of servers', function (string $serverType) {
     expect(Server::startingOrRunning()->type($serverType)->get())->toHaveCount(2);
 })->with('serverTypes');
 
+it('will not destroy servers of other types', function() {
+    Server::factory()->running()->count(3)->create(['type' => 'default']);
+    Server::factory()->running()->count(3)->create(['type' => 'other']);
+
+    DynamicServers::ensure(1);
+
+    expect(Server::startingOrRunning()->type('default')->get())->toHaveCount(1);
+    expect(Server::startingOrRunning()->type('other')->get())->toHaveCount(3);
+
+    DynamicServers::ensure(2, 'other');
+
+    expect(Server::startingOrRunning()->type('default')->get())->toHaveCount(1);
+    expect(Server::startingOrRunning()->type('other')->get())->toHaveCount(2);
+});
+
 dataset('serverTypes', [
     'default',
     'other',
