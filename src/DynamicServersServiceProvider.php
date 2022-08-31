@@ -25,7 +25,7 @@ class DynamicServersServiceProvider extends PackageServiceProvider
 
     public function packageRegistered()
     {
-        $this->app->singleton(DynamicServers::class, fn() => new DynamicServers());
+        $this->app->singleton(DynamicServers::class, fn () => new DynamicServers());
 
         $this->app->bind('dynamicServers', DynamicServers::class);
     }
