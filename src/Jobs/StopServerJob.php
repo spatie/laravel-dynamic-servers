@@ -3,14 +3,7 @@
 namespace Spatie\DynamicServers\Jobs;
 
 use Exception;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Spatie\DynamicServers\Events\StoppingServerEvent;
-use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\Config;
 
 class StopServerJob extends DynamicServerJob
