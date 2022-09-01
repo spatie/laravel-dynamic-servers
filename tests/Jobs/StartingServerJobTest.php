@@ -3,7 +3,6 @@
 namespace Spatie\DynamicServers\Tests\Jobs;
 
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Queue;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Events\ServerHangingEvent;
 use Spatie\DynamicServers\Jobs\VerifyServerStartedJob;
@@ -11,13 +10,13 @@ use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Tests\TestSupport\ServerProviders\EndlessStartServerProvider;
 use function Spatie\PestPluginTestTime\testTime;
 
-beforeEach(function() {
-   $this->setDefaultServerProvider(EndlessStartServerProvider::class);
+beforeEach(function () {
+    $this->setDefaultServerProvider(EndlessStartServerProvider::class);
 
-   Event::fake();
+    Event::fake();
 });
 
-it('can detect that the server is hanging when starting takes too long', function() {
+it('can detect that the server is hanging when starting takes too long', function () {
     testTime()->freeze();
 
     $server = Server::factory()->create()->markAs(ServerStatus::Starting);
@@ -31,10 +30,9 @@ it('can detect that the server is hanging when starting takes too long', functio
     dispatch($verifyServerStartedJob);
     expect($server->refresh()->status)->toBe(ServerStatus::Hanging);
 
-    Event::assertDispatched(function(ServerHangingEvent $event) {
+    Event::assertDispatched(function (ServerHangingEvent $event) {
         expect($event->previousStatus)->toBe(ServerStatus::Starting);
 
         return true;
     });
-
 });

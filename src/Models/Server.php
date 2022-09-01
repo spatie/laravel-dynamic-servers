@@ -247,10 +247,10 @@ class Server extends Model
             ServerStatus::New,
             ServerStatus::Starting,
             ServerStatus::Stopping,
-        ]))
-
-        if (is_null($this->status_updated_at)) {
-            return false;
+        ])) {
+            if (is_null($this->status_updated_at)) {
+                return false;
+            }
         }
 
         return $this->status_updated_at->diffInMinutes() >= config('dynamic-servers.mark_server_as_hanging_after_minutes');

@@ -10,10 +10,10 @@ use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\DynamicServers\DynamicServersServiceProvider;
 use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Models\Server;
+use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 use Spatie\DynamicServers\Tests\TestSupport\ServerProviders\DummyServerProvider;
 use Spatie\LaravelData\LaravelDataServiceProvider;
-use \Spatie\DynamicServers\ServerProviders\ServerProvider;
 
 class TestCase extends Orchestra
 {
@@ -108,8 +108,7 @@ class TestCase extends Orchestra
     }
 
     /**
-     * @param class-string<ServerProvider> $serverProvider
-     *
+     * @param  class-string<ServerProvider>  $serverProvider
      * @return $this
      */
     protected function setDefaultServerProvider(string $serverProvider): self
