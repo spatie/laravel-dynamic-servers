@@ -6,7 +6,6 @@ use Spatie\DynamicServers\ServerProviders\ServerProvider;
 
 class DummyServerProvider extends ServerProvider
 {
-
     public function createServer(): void
     {
         //
@@ -29,7 +28,6 @@ class DummyServerProvider extends ServerProvider
 
     public function deleteServer(): void
     {
-
     }
 
     public function hasBeenDeleted(): bool
