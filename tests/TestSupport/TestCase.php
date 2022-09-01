@@ -13,7 +13,6 @@ use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 use Spatie\DynamicServers\Tests\TestSupport\ServerProviders\DummyServerProvider;
-use Spatie\LaravelData\LaravelDataServiceProvider;
 
 class TestCase extends Orchestra
 {

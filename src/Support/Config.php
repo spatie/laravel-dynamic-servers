@@ -36,7 +36,6 @@ class Config
 
         try {
             $action = app($actionClass);
-
         } catch (Exception $exception) {
             throw InvalidAction::make($actionName, $actionClass, $exception);
         }
