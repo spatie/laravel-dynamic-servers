@@ -4,7 +4,7 @@ namespace Spatie\DynamicServers\Support;
 
 use Exception;
 use Illuminate\Support\Arr;
-use Spatie\DynamicServers\Exceptions\CouldNotDetermineDefaultProviderName;
+use Spatie\DynamicServers\Exceptions\CannotDetermineDefaultProviderName;
 use Spatie\DynamicServers\Exceptions\InvalidAction;
 use Spatie\DynamicServers\Exceptions\JobDoesNotExist;
 
@@ -48,7 +48,7 @@ class Config
         $providerName = array_key_first(config('dynamic-servers.providers'));
 
         if (empty($providerName)) {
-            throw CouldNotDetermineDefaultProviderName::make();
+            throw CannotDetermineDefaultProviderName::make();
         }
 
         return $providerName;

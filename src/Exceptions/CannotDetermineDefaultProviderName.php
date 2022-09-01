@@ -4,7 +4,7 @@ namespace Spatie\DynamicServers\Exceptions;
 
 use Exception;
 
-class CouldNotDetermineDefaultProviderName extends Exception
+class CannotDetermineDefaultProviderName extends Exception
 {
     public static function make(): self
     {

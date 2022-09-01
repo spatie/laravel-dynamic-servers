@@ -43,4 +43,6 @@ return [
      * after the given amount of days.
      */
     'prune_stopped_servers_from_local_db_after_days' => 1,
+
+    'throw_exception_when_hitting_maximum_server_limit' => false,
 ];
