@@ -38,7 +38,7 @@ class MonitorDynamicServersCommand extends Command
         }
 
         $differences->each(function (int $count, string $status) {
-            $this->components->twoColumnDetail($status, $count);
+            $this->components->twoColumnDetail($status, (string) $count);
         });
 
         return $this;
