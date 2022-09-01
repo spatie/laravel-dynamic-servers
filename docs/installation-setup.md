@@ -21,7 +21,7 @@ php artisan migrate
 
 ## Publishing the config file
 
-You can publish the `health` config file with this command.
+You can publish the `dynamic-servers` config file with this command.
 
 ```bash
 php artisan vendor:publish --tag="dynamic-servers-config"
