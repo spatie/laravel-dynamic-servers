@@ -14,7 +14,7 @@ use Spatie\DynamicServers\Tests\TestSupport\ServerProviders\EndlessStartServerPr
 use Spatie\DynamicServers\Tests\TestSupport\ServerProviders\EndlessStopServerProvider;
 use function Spatie\PestPluginTestTime\testTime;
 
-it('can detect that the server is hanging when stopping takes too long', function(
+it('can detect that the server is hanging when stopping takes too long', function (
     string $serverProviderClass,
     string $jobClass,
     ServerStatus $serverStatus) {
@@ -35,7 +35,7 @@ it('can detect that the server is hanging when stopping takes too long', functio
     dispatch($verifyServerStartedJob);
     expect($server->refresh()->status)->toBe(ServerStatus::Hanging);
 
-    Event::assertDispatched(function(ServerHangingEvent $event) use ($serverStatus) {
+    Event::assertDispatched(function (ServerHangingEvent $event) use ($serverStatus) {
         expect($event->previousStatus)->toBe($serverStatus);
 
         return true;
