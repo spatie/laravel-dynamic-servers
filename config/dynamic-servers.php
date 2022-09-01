@@ -4,6 +4,7 @@ return [
     'providers' => [
         'up_cloud' => [
             'class' => Spatie\DynamicServers\ServerProviders\UpCloud\UpCloud::class,
+            'maximum_servers_in_account' => 100,
             'options' => [
                 'username' => env('UP_CLOUD_USER_NAME'),
                 'password' => env('UP_CLOUD_PASSWORD'),

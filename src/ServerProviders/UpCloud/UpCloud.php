@@ -111,4 +111,9 @@ class UpCloud extends ServerProvider
             $this->server->option('password')
         )->baseUrl('https://api.upcloud.com/1.3');
     }
+
+    public function currentServerCount(): int
+    {
+        // TODO: Implement currentServerCount() method.
+    }
 }
