@@ -11,7 +11,7 @@ class VerifyServerStartedJob extends DynamicServerJob
     public function handle()
     {
         try {
-            if($this->server->isNotResponding()) {
+            if ($this->server->isNotResponding()) {
                 $this->server->markAsHanging();
 
                 return;

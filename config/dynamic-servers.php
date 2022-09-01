@@ -21,7 +21,6 @@ return [
         'verify_server_deleted' => Spatie\DynamicServers\Jobs\VerifyServerDeletedJob::class,
     ],
 
-
     /*
      * When we detect that a server is taking longer than this amount of minutes
      * to start or stop, we'll mark it has hanging, and will not try to use it anymore
