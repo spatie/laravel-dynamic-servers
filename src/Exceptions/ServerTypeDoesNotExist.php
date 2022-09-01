@@ -15,6 +15,6 @@ class ServerTypeDoesNotExist extends Exception
             })
             ->join(', ', ' and ');
 
-        return new static("There is no server type registered with name `{$serverTypeName}`. Available names are: {$availableNames}. You can register more using `DynamicServers::registerServerType()");
+        return new self("There is no server type registered with name `{$serverTypeName}`. Available names are: {$availableNames}. You can register more using `DynamicServers::registerServerType()");
     }
 }
