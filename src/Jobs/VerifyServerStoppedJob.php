@@ -12,6 +12,12 @@ class VerifyServerStoppedJob extends DynamicServerJob
     public function handle()
     {
         try {
+            if($this->server->isNotResponding()) {
+                $this->server->markAsHanging();
+
+                return;
+            }
+
             if ($this->server->serverProvider()->hasBeenStopped()) {
                 $this->server->markAs(ServerStatus::Stopped);
                 event(new ServerStoppedEvent($this->server));

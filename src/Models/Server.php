@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Spatie\DynamicServers\Enums\ServerStatus;
+use Spatie\DynamicServers\Events\ServerErroredEvent;
+use Spatie\DynamicServers\Events\ServerHangingEvent;
 use Spatie\DynamicServers\Exceptions\CannotStartServer;
 use Spatie\DynamicServers\Exceptions\CannotStopServer;
 use Spatie\DynamicServers\Exceptions\InvalidProvider;
@@ -146,7 +148,7 @@ class Server extends Model
         return $serverProvider;
     }
 
-    public function markAsErrored(Exception $exception)
+    public function markAsErrored(Exception $exception): self
     {
         $this->update([
             'status' => ServerStatus::Errored,
@@ -155,6 +157,21 @@ class Server extends Model
             'exception_message' => $exception->getMessage(),
             'exception_trace' => $exception->getTraceAsString(),
         ]);
+
+        event(new ServerErroredEvent($this));
+
+        return $this;
+    }
+
+    public function markAsHanging(): self
+    {
+        $previousStatus = $this->status;
+
+        $this->markAs(ServerStatus::Hanging);
+
+        event(new ServerHangingEvent($this, $previousStatus));
+
+        return $this;
     }
 
     public function meta(string $key, mixed $default = null)
@@ -222,5 +239,14 @@ class Server extends Model
                 return [$status => $actualStatuses[$status] ?? 0];
             })
             ->toArray();
+    }
+
+    public function isNotResponding(): bool
+    {
+        if (is_null($this->status_updated_at)) {
+            return false;
+        }
+
+        return $this->status_updated_at->diffInMinutes() >= config('dynamic-servers.mark_server_as_hanging_after_minutes');
     }
 }

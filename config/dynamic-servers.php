@@ -21,6 +21,16 @@ return [
         'verify_server_deleted' => Spatie\DynamicServers\Jobs\VerifyServerDeletedJob::class,
     ],
 
+
+    /*
+     * When we detect that a server is taking longer than this amount of minutes
+     * to start or stop, we'll mark it has hanging, and will not try to use it anymore
+     *
+     * The `ServerHangingEvent` will be fired, that you can use to send yourself a notification,
+     * or manually take the necessary actions to start/stop it.
+     */
+    'mark_server_as_hanging_after_minutes' => 10,
+
     /*
      * The dynamic_servers table holds records of all dynamic servers.
      *

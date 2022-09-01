@@ -13,4 +13,5 @@ enum ServerStatus: string
     case Deleting = 'deleting';
     case Deleted = 'deleted';
     case Errored = 'errored';
+    case Hanging = 'hanging';
 }

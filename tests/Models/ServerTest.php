@@ -132,5 +132,6 @@ it('can get the server count by status', function () {
         'deleting' => 0,
         'deleted' => 0,
         'errored' => 0,
+        'hanging' => 0,
     ]);
 });
