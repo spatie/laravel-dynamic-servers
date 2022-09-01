@@ -15,6 +15,7 @@ class StartServerAction
     {
         if (! $this->allowedToStartServer($server)) {
             $server->delete();
+
             return;
         }
 

@@ -8,5 +8,6 @@ class ServerLimitHitEvent
 {
     public function __construct(
         public Server $server,
-    ) {}
+    ) {
+    }
 }
