@@ -15,6 +15,6 @@ class ProviderDoesNotExist extends Exception
             })
             ->join(', ', ' and ');
 
-        return new static("There is no provider registered with name `{$providerName}`. Available providers are: {$availableNames}. You can register providers in the `providers` key of the `dynamic_servers` config file.");
+        return new self("There is no provider registered with name `{$providerName}`. Available providers are: {$availableNames}. You can register providers in the `providers` key of the `dynamic_servers` config file.");
     }
 }

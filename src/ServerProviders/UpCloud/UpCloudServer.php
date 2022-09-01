@@ -21,7 +21,7 @@ class UpCloudServer extends Data
             ->where('family', 'IPv4')
             ->first()['address'] ?? '';
 
-        return new static(
+        return new self(
             $payload['uuid'],
             $payload['title'],
             $ip,

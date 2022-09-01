@@ -14,6 +14,6 @@ class CannotGetUpCloudServerDetails extends Exception
     {
         $reason = $response->json('error.error_message');
 
-        return new static("Could refresh details for UpCloud server id {$server->id}: $reason");
+        return new self("Could refresh details for UpCloud server id {$server->id}: $reason");
     }
 }

@@ -14,7 +14,6 @@ class DynamicServers
 
     /**
      * @param  Closure(DynamicServers): void  $determineServerCountUsing
-     * @return void
      */
     public function determineServerCount(Closure $determineServerCountUsing): self
     {
@@ -30,6 +29,8 @@ class DynamicServers
         }
 
         ($this->determineServerCountUsing)($this);
+
+        return $this;
     }
 
     public function ensure(int $desiredCount, string $type = 'default'): self

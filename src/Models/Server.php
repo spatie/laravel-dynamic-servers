@@ -4,6 +4,7 @@ namespace Spatie\DynamicServers\Models;
 
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\ArrayObject;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\MassPrunable;
@@ -39,18 +40,18 @@ class Server extends Model
 
     public static function booted()
     {
-        Server::creating(function (Server $server) {
-            if (is_null($server->status)) {
+        self::creating(function (self $server) {
+            if (null === $server->status) {
                 $server->status = ServerStatus::New;
                 $server->status_updated_at = now();
             }
 
             if (empty($server->meta)) {
-                $server->meta = [];
+                $server->meta = new ArrayObject();
             }
         });
 
-        Server::created(function (Server $server) {
+        self::created(function (self $server) {
             $name = $server->name;
             $configuration = $server->configuration;
 
@@ -137,7 +138,7 @@ class Server extends Model
             throw InvalidProvider::make($this);
         }
 
-        /** @var ServerProvider $providerClass */
+        /** @var ServerProvider $serverProvider */
         $serverProvider = app($providerClassName);
 
         $serverProvider->setServer($this);
@@ -175,19 +176,19 @@ class Server extends Model
         return Config::providerOption($this->provider, $key);
     }
 
-    public function scopeStatus(Builder $query, ServerStatus ...$statuses): void
+    public function scopeStatus(Builder $query, ServerStatus ...$statuses): Builder
     {
-        $query->whereIn('status', $statuses);
+        return $query->whereIn('status', $statuses);
     }
 
-    public function scopeStartingOrRunning(Builder $query): void
+    public function scopeStartingOrRunning(Builder $query): Builder
     {
-        $query->status(ServerStatus::Starting, ServerStatus::Running);
+        return  $this->scopeStatus($query, ServerStatus::Starting, ServerStatus::Running);
     }
 
-    public function scopeType(Builder $query, string $type): void
+    public function scopeType(Builder $query, string $type): Builder
     {
-        $query->where('type', $type);
+        return  $query->where('type', $type);
     }
 
     protected function generateName(): string
