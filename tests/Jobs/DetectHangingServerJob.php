@@ -44,5 +44,4 @@ it('can detect that the server is hanging when stopping takes too long', functio
     [EndlessStartServerProvider::class, VerifyServerStartedJob::class, ServerStatus::Starting],
     [EndlessStopServerProvider::class, VerifyServerStoppedJob::class, ServerStatus::Stopping],
     [EndlessDeleteServerProvider::class, VerifyServerDeletedJob::class, ServerStatus::Deleting],
-
 ]);
