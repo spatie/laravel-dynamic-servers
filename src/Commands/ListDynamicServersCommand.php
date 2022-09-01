@@ -39,7 +39,7 @@ class ListDynamicServersCommand extends Command
                     'provider' => $server->provider,
                     'type' => $server->type,
                     'status' => $server->status->value,
-                    'status_updated_at' => $server->status_updated_at->format('Y-m-d H:i:s'),
+                    'status_updated_at' => $server->status_updated_at?->format('Y-m-d H:i:s') ?? 'Unknown',
                 ];
             })
             ->all();

@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Models\Server;
 
-class HandleHangingServersCommand extends Command
+class DetectHangingServersCommand extends Command
 {
     public $signature = 'dynamic-servers:hanging';
 
@@ -24,7 +24,8 @@ class HandleHangingServersCommand extends Command
                 ServerStatus::Starting,
                 ServerStatus::Stopping,
             )
-            ->where('status_changed_at', '>', now()->subMinutes($thresholdInMinutes)->toDateTimeString())
+
+            ->where('status_updated_at', '<=', now()->subMinutes($thresholdInMinutes))
             ->get();
 
         if ($hangingServers->isEmpty()) {
@@ -38,7 +39,6 @@ class HandleHangingServersCommand extends Command
         $hangingServers->each(function(Server $server) {
             $server->markAsHanging();
         });
-
 
         return self::SUCCESS;
     }

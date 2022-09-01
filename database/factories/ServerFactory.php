@@ -21,6 +21,8 @@ class ServerFactory extends Factory
             'name' => 'server-name',
             'type' => $serverType->name,
             'provider' => $serverType->providerName,
+            'status' => ServerStatus::New,
+            'meta' => [],
         ];
     }
 
@@ -38,6 +40,15 @@ class ServerFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'status' => ServerStatus::Stopped->value,
+            ];
+        });
+    }
+
+    public function starting(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => ServerStatus::Starting->value,
             ];
         });
     }

@@ -19,7 +19,7 @@ abstract class ServerProvider
 
     abstract public function stopServer(): void;
 
-    abstract public function hasBeenStopped(): bool;
+    abstract public function hasStopped(): bool;
 
     abstract public function deleteServer(): void;
 

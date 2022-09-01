@@ -241,8 +241,14 @@ class Server extends Model
             ->toArray();
     }
 
-    public function isNotResponding(): bool
+    public function isProbablyHanging(): bool
     {
+        if (! in_array($this->status, [
+            ServerStatus::New,
+            ServerStatus::Starting,
+            ServerStatus::Stopping,
+        ]))
+
         if (is_null($this->status_updated_at)) {
             return false;
         }

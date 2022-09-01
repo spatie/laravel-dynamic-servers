@@ -2,7 +2,7 @@
 
 namespace Spatie\DynamicServers;
 
-use Spatie\DynamicServers\Commands\HandleHangingServersCommand;
+use Spatie\DynamicServers\Commands\DetectHangingServersCommand;
 use Spatie\DynamicServers\Commands\ListDynamicServersCommand;
 use Spatie\DynamicServers\Commands\MonitorDynamicServersCommand;
 use Spatie\DynamicServers\Support\Config;
@@ -22,7 +22,7 @@ class DynamicServersServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_dynamic_servers_table')
             ->hasCommands(
-                HandleHangingServersCommand::class,
+                DetectHangingServersCommand::class,
                 ListDynamicServersCommand::class,
                 MonitorDynamicServersCommand::class,
             );

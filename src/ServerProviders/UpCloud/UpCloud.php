@@ -65,7 +65,7 @@ class UpCloud extends ServerProvider
         }
     }
 
-    public function hasBeenStopped(): bool
+    public function hasStopped(): bool
     {
         $upCloudServer = $this->getServer();
 

@@ -44,11 +44,11 @@ You should add the commands to your schedule, and let them run every minute.
 ```php
 // in app/Console/Kernel.php
 use Spatie\DynamicServers\Commands\MonitorDynamicServersCommand;
-use Spatie\DynamicServers\Commands\HandleHangingServersCommand;
+use Spatie\DynamicServers\Commands\DetectHangingServersCommand;
 
 protected function schedule(Schedule $schedule)
 {
     $schedule->command(MonitorDynamicServersCommand::class)->everyMinute();
-    $schedule->command(HandleHangingServersCommand::class)->everyMinute();
+    $schedule->command(DetectHangingServersCommand::class)->everyMinute();
 }
 ```

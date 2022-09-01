@@ -11,7 +11,9 @@ use Spatie\DynamicServers\DynamicServersServiceProvider;
 use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
+use Spatie\DynamicServers\Tests\TestSupport\ServerProviders\DummyServerProvider;
 use Spatie\LaravelData\LaravelDataServiceProvider;
+use \Spatie\DynamicServers\ServerProviders\ServerProvider;
 
 class TestCase extends Orchestra
 {
@@ -66,6 +68,8 @@ class TestCase extends Orchestra
 
     protected function setUpUpCloudTestProvider(): self
     {
+        $this->setDefaultServerProvider(DummyServerProvider::class);
+
         $providerConfig = config('dynamic-servers.providers');
         $providerConfig['other_provider'] = ['class' => 'Dummy value'];
 
@@ -99,6 +103,18 @@ class TestCase extends Orchestra
                 })
         );
         */
+
+        return $this;
+    }
+
+    /**
+     * @param class-string<ServerProvider> $serverProvider
+     *
+     * @return $this
+     */
+    protected function setDefaultServerProvider(string $serverProvider): self
+    {
+        config()->set('dynamic-servers.providers.up_cloud.class', $serverProvider);
 
         return $this;
     }

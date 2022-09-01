@@ -50,9 +50,5 @@ it('can start a server', function () {
     expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
 
     $this->processQueuedJobs();
-    expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
-
-    $this->processQueuedJobs();
-    ray($this->server->refresh());
     expect($this->server->refresh()->status)->toBe(ServerStatus::Running);
 });

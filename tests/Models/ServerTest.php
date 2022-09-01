@@ -10,6 +10,7 @@ use Spatie\DynamicServers\Jobs\CreateServerJob;
 use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
+use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
     /** @var Server $server */
@@ -106,7 +107,7 @@ it('will copy the configuration of a server type to the configuration attribute'
             ->provider('other_provider')
             ->configuration(function (Server $server) {
                 return [
-                    'hostname' => 'The servername: '.Str::slug($server->name),
+                    'hostname' => 'The servername: ' . Str::slug($server->name),
                 ];
             })
     );
@@ -134,4 +135,17 @@ it('can get the server count by status', function () {
         'errored' => 0,
         'hanging' => 0,
     ]);
+});
+
+it('can determine that the server is probably hanging', function () {
+    testTime()->freeze();
+    /** @var Server $server */
+    $server = Server::factory()->create()->markAs(ServerStatus::Starting);
+    expect($server->isProbablyHanging())->toBeFalse();
+
+    testTime()->addMinutes(config('dynamic-servers.mark_server_as_hanging_after_minutes'))->subSecond();
+    expect($server->isProbablyHanging())->toBeFalse();
+
+    testTime()->addSecond();
+    expect($server->isProbablyHanging())->toBeTrue();
 });
