@@ -176,14 +176,14 @@ class Server extends Model
         return Config::providerOption($this->provider, $key);
     }
 
-    public function scopeStatus(Builder $query, ServerStatus ...$statuses): Builder
+    public function scopeStatus(Builder $query, ServerStatus ...$statuses): void
     {
-        return $query->whereIn('status', $statuses);
+        $query->whereIn('status', $statuses);
     }
 
-    public function scopeStartingOrRunning(Builder $query): Builder
+    public function scopeStartingOrRunning(Builder $query): void
     {
-        return  $this->scopeStatus($query, ServerStatus::Starting, ServerStatus::Running);
+        $this->scopeStatus($query, ServerStatus::Starting, ServerStatus::Running);
     }
 
     public function scopeType(Builder $query, string $type): Builder

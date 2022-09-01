@@ -21,7 +21,7 @@ beforeEach(function () {
 it('can add meta data to a server', function (mixed $value) {
     $this->server->addMeta('key', $value);
 
-    expect($this->server->refresh()->meta['key'])->toEqual($value);
+    expect($this->server->refresh()->meta['key'])->toBe($value);
 })->with([
     'a string',
     ['an', 'array', 'of', 'strings'],
