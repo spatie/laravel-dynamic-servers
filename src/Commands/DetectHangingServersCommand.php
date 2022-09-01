@@ -34,9 +34,9 @@ class DetectHangingServersCommand extends Command
             return self::SUCCESS;
         }
 
-        $this->components->warn("Detected {$hangingServers->count()} hanging " . Str::plural('server', $hangingServers->count()));
+        $this->components->warn("Detected {$hangingServers->count()} hanging ".Str::plural('server', $hangingServers->count()));
 
-        $hangingServers->each(function(Server $server) {
+        $hangingServers->each(function (Server $server) {
             $server->markAsHanging();
         });
 
