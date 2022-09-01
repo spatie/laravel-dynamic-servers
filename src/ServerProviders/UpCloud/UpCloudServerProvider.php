@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CannotGetUpCloudServerDetails;
 
-class UpCloud extends ServerProvider
+class UpCloudServerProvider extends ServerProvider
 {
     public function createServer(): void
     {
@@ -86,9 +86,11 @@ class UpCloud extends ServerProvider
 
     public function hasBeenDeleted(): bool
     {
-        // to do: implement
+        $serverUuid = $this->server->meta('server_properties.uuid');
 
-        return true;
+        $response = $this->request()->get("/server/{$serverUuid}");
+
+        return $response->failed();
     }
 
     public function getServer(): UpCloudServer
@@ -114,6 +116,12 @@ class UpCloud extends ServerProvider
 
     public function currentServerCount(): int
     {
-        // TODO: Implement currentServerCount() method.
+        $response = $this->request()->get('server');
+
+        if (! $response->successful()) {
+            throw CannotGetUpCloudServerDetails::make($this->server, $response);
+        }
+
+        return count($response->json('servers.server'));
     }
 }

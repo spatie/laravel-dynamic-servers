@@ -8,9 +8,11 @@ abstract class ServerProvider
 {
     protected Server $server;
 
-    public function setServer(Server $server)
+    public function setServer(Server $server): self
     {
         $this->server = $server;
+
+        return $this;
     }
 
     abstract public function createServer(): void;

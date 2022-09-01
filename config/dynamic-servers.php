@@ -3,7 +3,7 @@
 return [
     'providers' => [
         'up_cloud' => [
-            'class' => Spatie\DynamicServers\ServerProviders\UpCloud\UpCloud::class,
+            'class' => Spatie\DynamicServers\ServerProviders\UpCloud\UpCloudServerProvider::class,
             'maximum_servers_in_account' => 100,
             'options' => [
                 'username' => env('UP_CLOUD_USER_NAME'),
@@ -11,6 +11,11 @@ return [
                 'disk_image' => env('UP_CLOUD_DISK_IMAGE_UUID'),
             ],
         ],
+    ],
+
+    'actions' => [
+        'start_server' => Spatie\DynamicServers\Actions\StartServerAction::class,
+        'stop_server' => Spatie\DynamicServers\Actions\StopServerAction::class,
     ],
 
     'jobs' => [

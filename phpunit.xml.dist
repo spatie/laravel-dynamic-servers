@@ -36,8 +36,4 @@
     <logging>
         <junit outputFile="build/report.junit.xml"/>
     </logging>
-    <php>
-        <env name="UP_CLOUD_USER_NAME" value="test" />
-        <env name="UP_CLOUD_PASSWORD" value="test" />
-    </php>
 </phpunit>

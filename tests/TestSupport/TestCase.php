@@ -34,7 +34,6 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            LaravelDataServiceProvider::class,
             DynamicServersServiceProvider::class,
         ];
     }
@@ -116,5 +115,10 @@ class TestCase extends Orchestra
         config()->set('dynamic-servers.providers.up_cloud.class', $serverProvider);
 
         return $this;
+    }
+
+    public function upCloudHasBeenConfigured(): bool
+    {
+        return config()->has('dynamic-servers.providers.up_cloud.options.username');
     }
 }

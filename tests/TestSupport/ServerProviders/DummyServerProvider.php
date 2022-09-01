@@ -34,4 +34,9 @@ class DummyServerProvider extends ServerProvider
     {
         return true;
     }
+
+    public function currentServerCount(): int
+    {
+        return 0;
+    }
 }

@@ -2,9 +2,7 @@
 
 namespace Spatie\DynamicServers\ServerProviders\UpCloud;
 
-use Spatie\LaravelData\Data;
-
-class UpCloudServer extends Data
+class UpCloudServer
 {
     public function __construct(
         public string $uuid,

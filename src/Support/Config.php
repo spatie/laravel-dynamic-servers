@@ -2,8 +2,10 @@
 
 namespace Spatie\DynamicServers\Support;
 
+use Exception;
 use Illuminate\Support\Arr;
 use Spatie\DynamicServers\Exceptions\CouldNotDetermineDefaultProviderName;
+use Spatie\DynamicServers\Exceptions\InvalidAction;
 use Spatie\DynamicServers\Exceptions\JobDoesNotExist;
 
 class Config
@@ -26,6 +28,20 @@ class Config
         }
 
         return $jobClass;
+    }
+
+    public static function action(string $actionName): object
+    {
+        $actionClass = config("dynamic-servers.actions.{$actionName}");
+
+        try {
+            $action = app($actionClass);
+
+        } catch (Exception $exception) {
+            throw InvalidAction::make($actionName, $actionClass, $exception);
+        }
+
+        return $action;
     }
 
     public static function defaultProviderName(): string

@@ -23,6 +23,9 @@ use Spatie\DynamicServers\Jobs\StopServerJob;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\Config;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
+use Spatie\DynamicServers\Actions\StartServerAction;
+use Spatie\DynamicServers\Actions\StopServerAction;
+
 
 class Server extends Model
 {
@@ -91,32 +94,20 @@ class Server extends Model
 
     public function start(): self
     {
-        if ($this->status !== ServerStatus::New) {
-            throw CannotStartServer::wrongStatus($this);
-        }
+        /** @var \Spatie\DynamicServers\Actions\StartServerAction $action */
+        $action = Config::action('start_server');
 
-        /** @var class-string<CreateServerJob> $createServerJobClass */
-        $createServerJobClass = Config::dynamicServerJobClass('create_server');
-
-        dispatch(new $createServerJobClass($this));
-
-        $this->markAs(ServerStatus::Starting);
+        $action->execute($this);
 
         return $this;
     }
 
     public function stop(): self
     {
-        if ($this->status !== ServerStatus::Running) {
-            throw CannotStopServer::wrongStatus($this);
-        }
+        /** @var \Spatie\DynamicServers\Actions\StartServerAction $action */
+        $action = Config::action('stop_server');
 
-        /** @var class-string<StopServerJob> $stopServerJobClass */
-        $stopServerJobClass = Config::dynamicServerJobClass('stop_server');
-
-        dispatch(new $stopServerJobClass($this));
-
-        $this->markAs(ServerStatus::Stopping);
+        $action->execute($this);
 
         return $this;
     }
