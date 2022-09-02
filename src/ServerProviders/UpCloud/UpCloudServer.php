@@ -26,4 +26,14 @@ class UpCloudServer
             UpCloudServerStatus::from($payload['state']),
         );
     }
+
+    public function toArray(): array
+    {
+        return [
+            'uuid' => $this->uuid,
+            'title' => $this->title,
+            'ip' => $this->ip,
+            'status' => $this->status->value,
+        ];
+    }
 }

@@ -20,6 +20,11 @@ class ServerType
         return new self($name);
     }
 
+    public static function default(): self
+    {
+        return self::new('default');
+    }
+
     public function __construct(
         string $name,
         string $providerName = null,

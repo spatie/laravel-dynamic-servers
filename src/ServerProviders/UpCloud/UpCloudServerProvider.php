@@ -13,25 +13,7 @@ class UpCloudServerProvider extends ServerProvider
 {
     public function createServer(): void
     {
-        $response = $this->request()
-            ->post('/server', [
-                'server' => [
-                    'zone' => 'de-fra1',
-                    'title' => $this->server->name,
-                    'hostname' => Str::slug($this->server->name),
-                    'plan' => '2xCPU-4GB',
-                    'storage_devices' => [
-                        'storage_device' => [
-                            [
-                                'action' => 'clone',
-                                'storage' => $this->server->option('disk_image'),
-                                'title' => Str::slug($this->server->name).'-disk',
-                                'tier' => 'maxiops',
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
+        $response = $this->request()->post('/server', $this->server->configuration);
 
         if (! $response->successful()) {
             throw new Exception($response->json('error.error_message'));
