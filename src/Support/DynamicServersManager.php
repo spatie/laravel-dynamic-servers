@@ -7,6 +7,7 @@ use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 use Spatie\DynamicServers\Support\ServerTypes\ServerTypes;
+use Spatie\DynamicServers\Actions\FindServersToStopAction;
 
 class DynamicServersManager
 {
@@ -75,13 +76,12 @@ class DynamicServersManager
 
     public function decreaseCount(int $by = 1, string $type = 'default'): self
     {
-        Server::query()
-            ->where('status', ServerStatus::Running)
-            ->where('type', $type)
-            ->status(ServerStatus::Running)
-            ->limit($by)
-            ->get()
-            ->each(fn (Server $server) => $server->stop());
+        /** @var FindServersToStopAction $findServersToStopAction */
+        $findServersToStopAction = Config::action('find_servers_to_stop');
+
+        $servers = $findServersToStopAction->execute($by, $type);
+
+        $servers->each(fn (Server $server) => $server->stop());
 
         return $this;
     }

@@ -1,6 +1,5 @@
 <?php
 
-// TODO: find server to stop strategy
 // TODO: install command, copy service provider
 // TODO: reboot (+ flag on model to reboot)
 
@@ -21,6 +20,7 @@ return [
         'generate_server_name' => Spatie\DynamicServers\Actions\GenerateServerNameAction::class,
         'start_server' => Spatie\DynamicServers\Actions\StartServerAction::class,
         'stop_server' => Spatie\DynamicServers\Actions\StopServerAction::class,
+        'find_servers_to_stop' => Spatie\DynamicServers\Actions\FindServersToStopAction::class,
     ],
 
     'jobs' => [
