@@ -27,5 +27,7 @@ abstract class ServerProvider
 
     abstract public function hasBeenDeleted(): bool;
 
+    abstract public function rebootServer(): void;
+
     abstract public function currentServerCount(): int;
 }
