@@ -3,11 +3,10 @@
 namespace Spatie\DynamicServers\Support;
 
 use Closure;
-use Spatie\DynamicServers\Enums\ServerStatus;
+use Spatie\DynamicServers\Actions\FindServersToStopAction;
 use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 use Spatie\DynamicServers\Support\ServerTypes\ServerTypes;
-use Spatie\DynamicServers\Actions\FindServersToStopAction;
 
 class DynamicServersManager
 {
