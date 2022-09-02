@@ -39,4 +39,9 @@ class DummyServerProvider extends ServerProvider
     {
         return 0;
     }
+
+    public function rebootServer(): void
+    {
+        //
+    }
 }

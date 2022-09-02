@@ -6,7 +6,7 @@ use Spatie\DynamicServers\Commands\DetectHangingServersCommand;
 use Spatie\DynamicServers\Commands\ListDynamicServersCommand;
 use Spatie\DynamicServers\Commands\MonitorDynamicServersCommand;
 use Spatie\DynamicServers\Support\Config;
-use Spatie\DynamicServers\Support\DynamicServers;
+use Spatie\DynamicServers\Support\DynamicServersManager;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 use Spatie\DynamicServers\Support\ServerTypes\ServerTypes;
 use Spatie\LaravelPackageTools\Package;
@@ -30,8 +30,8 @@ class DynamicServersServiceProvider extends PackageServiceProvider
 
     public function packageRegistered()
     {
-        $this->app->singleton(DynamicServers::class, fn () => new DynamicServers());
-        $this->app->bind('dynamicServers', DynamicServers::class);
+        $this->app->singleton(DynamicServersManager::class, fn () => new DynamicServersManager());
+        $this->app->bind('dynamicServers', DynamicServersManager::class);
 
         $this->app->singleton(ServerTypes::class, fn () => new ServerTypes());
 
@@ -43,7 +43,7 @@ class DynamicServersServiceProvider extends PackageServiceProvider
         $defaultType = ServerType::new('default')
             ->provider(Config::defaultProviderName());
 
-        app(DynamicServers::class)->registerServerType($defaultType);
+        app(DynamicServersManager::class)->registerServerType($defaultType);
 
         return $this;
     }

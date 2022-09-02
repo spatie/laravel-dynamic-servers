@@ -8,12 +8,12 @@ use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 use Spatie\DynamicServers\Support\ServerTypes\ServerTypes;
 
-class DynamicServers
+class DynamicServersManager
 {
     protected ?Closure $determineServerCountUsing = null;
 
     /**
-     * @param  Closure(DynamicServers): void  $determineServerCountUsing
+     * @param  Closure(DynamicServersManager): void  $determineServerCountUsing
      */
     public function determineServerCount(Closure $determineServerCountUsing): self
     {

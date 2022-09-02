@@ -3,10 +3,10 @@
 namespace Spatie\DynamicServers\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Spatie\DynamicServers\Support\DynamicServers as DynamicServersClass;
+use Spatie\DynamicServers\Support\DynamicServersManager;
 
 /**
- * @see DynamicServersClass
+ * @see DynamicServersManager
  */
 class DynamicServers extends Facade
 {
