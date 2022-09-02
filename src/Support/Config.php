@@ -34,10 +34,14 @@ class Config
     {
         $actionClass = config("dynamic-servers.actions.{$actionName}");
 
+        if (is_null($actionClass)) {
+            throw InvalidAction::doesNotExist($actionName);
+        }
+
         try {
             $action = app($actionClass);
         } catch (Exception $exception) {
-            throw InvalidAction::make($actionName, $actionClass, $exception);
+            throw InvalidAction::couldNotMake($actionName, $actionClass, $exception);
         }
 
         return $action;

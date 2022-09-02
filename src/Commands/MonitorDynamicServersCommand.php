@@ -12,7 +12,7 @@ class MonitorDynamicServersCommand extends Command
 
     public function handle()
     {
-        $this->info('Monitoring dynamic servers');
+        $this->info('Determining new dynamic server count...');
 
         $initialServerCounts = Server::countPerStatus();
 
@@ -29,7 +29,7 @@ class MonitorDynamicServersCommand extends Command
     {
         $differences = collect($initialCounts)
             ->map(fn (int $count, string $status) => $currentCounts[$status] - $count)
-            ->reject(fn (int $count) => $count === 0);
+            ->reject(fn (int $count) => $count < 1);
 
         if ($differences->isEmpty()) {
             $this->components->info('No servers started or stopped');

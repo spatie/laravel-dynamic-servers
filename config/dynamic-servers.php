@@ -1,10 +1,13 @@
 <?php
+// TODO: find server to stop strategy
+// TODO: install command, copy service provider
+// TODO: reboot (+ flag on model to reboot)
 
 return [
     'providers' => [
         'up_cloud' => [
             'class' => Spatie\DynamicServers\ServerProviders\UpCloud\UpCloudServerProvider::class,
-            'maximum_servers_in_account' => 100,
+            'maximum_servers_in_account' => 20,
             'options' => [
                 'username' => env('UP_CLOUD_USER_NAME'),
                 'password' => env('UP_CLOUD_PASSWORD'),
@@ -43,7 +46,7 @@ return [
      * Using Laravels prune command all stopped servers will be deleted
      * after the given amount of days.
      */
-    'prune_stopped_servers_from_local_db_after_days' => 1,
+    'prune_stopped_servers_from_local_db_after_days' => 7,
 
     'throw_exception_when_hitting_maximum_server_limit' => false,
 ];
