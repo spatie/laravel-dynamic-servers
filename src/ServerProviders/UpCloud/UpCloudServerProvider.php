@@ -7,6 +7,7 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CannotGetUpCloudServerDetails;
+use Spatie\DynamicServers\ServerProviders\UpCloud\Exceptions\CannotRebootServer;
 
 class UpCloudServerProvider extends ServerProvider
 {
@@ -87,12 +88,19 @@ class UpCloudServerProvider extends ServerProvider
         return UpCloudServer::fromApiPayload($response->json('server'));
     }
 
-    protected function request(): PendingRequest
+    public function rebootServer(): void
     {
-        return Http::withBasicAuth(
-            $this->server->option('username'),
-            $this->server->option('password')
-        )->baseUrl('https://api.upcloud.com/1.3');
+        $serverUuid = $this->server->meta('server_properties.uuid');
+
+        $response = $this->request()->post("/server/{$serverUuid}/restart", [
+            'stop_type' => 'soft',
+            'timeout' => 60,
+            'timeout_action' => 'destroy', // Hard stop and start again after timeout
+        ]);
+
+        if (! $response->successful()) {
+            throw CannotRebootServer::make($this->server, $response);
+        }
     }
 
     public function currentServerCount(): int
@@ -104,5 +112,13 @@ class UpCloudServerProvider extends ServerProvider
         }
 
         return count($response->json('servers.server'));
+    }
+
+    protected function request(): PendingRequest
+    {
+        return Http::withBasicAuth(
+            $this->server->option('username'),
+            $this->server->option('password')
+        )->baseUrl('https://api.upcloud.com/1.3');
     }
 }
