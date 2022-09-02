@@ -5,11 +5,9 @@ namespace Spatie\DynamicServers\Tests\TestSupport;
 use Dotenv\Dotenv;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Queue;
-use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\DynamicServers\DynamicServersServiceProvider;
 use Spatie\DynamicServers\Facades\DynamicServers;
-use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 use Spatie\DynamicServers\Tests\TestSupport\ServerProviders\DummyServerProvider;
@@ -74,7 +72,7 @@ class TestCase extends Orchestra
         config()->set('dynamic-servers.providers', $providerConfig);
 
         DynamicServers::registerServerType(ServerType::new('other')->provider('other_provider'));
-        
+
         return $this;
     }
 
