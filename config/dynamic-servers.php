@@ -14,6 +14,7 @@ return [
     ],
 
     'actions' => [
+        'generate_server_name' => Spatie\DynamicServers\Actions\GenerateServerNameAction::class,
         'start_server' => Spatie\DynamicServers\Actions\StartServerAction::class,
         'stop_server' => Spatie\DynamicServers\Actions\StopServerAction::class,
     ],

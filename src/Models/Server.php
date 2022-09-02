@@ -21,6 +21,7 @@ use Spatie\DynamicServers\Support\Config;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 use Spatie\DynamicServers\Actions\StartServerAction;
 use Spatie\DynamicServers\Actions\StopServerAction;
+use Spatie\DynamicServers\Actions\GenerateServerNameAction;
 
 class Server extends Model
 {
@@ -190,7 +191,10 @@ class Server extends Model
 
     protected function generateName(): string
     {
-        return "dynamic-server-{$this->type}-{$this->id}";
+        /** @var GenerateServerNameAction $generateServerNameAction */
+        $generateServerNameAction = Config::action('generate_server_name');
+
+        return $generateServerNameAction->execute($this);
     }
 
     public function prunable(): Builder
