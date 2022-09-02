@@ -15,6 +15,4 @@ class InvalidAction extends Exception
     {
         return new self("Could not instanciate action class `{$actionClass}` for action `{$actionName}` because: {$exception->getMessage()}", previous: $exception);
     }
-
-
 }
