@@ -74,34 +74,7 @@ class TestCase extends Orchestra
         config()->set('dynamic-servers.providers', $providerConfig);
 
         DynamicServers::registerServerType(ServerType::new('other')->provider('other_provider'));
-
-        /*
-        DynamicServers::registerServerType(
-            ServerType::new('up_cloud')
-                ->provider('up_cloud')
-                ->configuration(function (Server $server) {
-                    return [
-                        'server' => [
-                            'zone' => 'de-fra1',
-                            'title' => $server->name,
-                            'hostname' => Str::slug($server->name),
-                            'plan' => '2xCPU-4GB',
-                            'storage_devices' => [
-                                'storage_device' => [
-                                    [
-                                        'action' => 'clone',
-                                        'storage' => $server->option('disk_image'),
-                                        'title' => Str::slug($server->name).'-disk',
-                                        'tier' => 'maxiops',
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ];
-                })
-        );
-        */
-
+        
         return $this;
     }
 

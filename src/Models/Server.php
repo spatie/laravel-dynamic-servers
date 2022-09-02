@@ -19,6 +19,8 @@ use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\Config;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
+use Spatie\DynamicServers\Actions\StartServerAction;
+use Spatie\DynamicServers\Actions\StopServerAction;
 
 class Server extends Model
 {
@@ -50,21 +52,15 @@ class Server extends Model
         });
 
         self::created(function (self $server) {
-            $name = $server->name;
-            $configuration = $server->configuration;
-
             if ($server->name === 'pending-server-name') {
-                $name = $server->generateName();
+                $server->name = $server->generateName();
             }
 
-            if (empty($server->configuration)) {
-                $configuration = $server->serverType()->getConfiguration($server);
+            if (empty($configuration)) {
+                $server->configuration = $server->serverType()->getConfiguration($server);
             }
 
-            $server->updateQuietly([
-                'name' => $name,
-                'configuration' => $configuration,
-            ]);
+            $server->saveQuietly();
         });
     }
 
@@ -87,7 +83,7 @@ class Server extends Model
 
     public function start(): self
     {
-        /** @var \Spatie\DynamicServers\Actions\StartServerAction $action */
+        /** @var StartServerAction $action */
         $action = Config::action('start_server');
 
         $action->execute($this);
@@ -97,7 +93,7 @@ class Server extends Model
 
     public function stop(): self
     {
-        /** @var \Spatie\DynamicServers\Actions\StartServerAction $action */
+        /** @var StopServerAction $action */
         $action = Config::action('stop_server');
 
         $action->execute($this);

@@ -115,7 +115,7 @@ it('will copy the configuration of a server type to the configuration attribute'
     $server = Server::prepareNew('big');
 
     expect($server->refresh())->configuration->toBe([
-        'hostname' => 'The servername: pending-server-name',
+        'hostname' => 'The servername: dynamic-server-big-2',
     ]);
 });
 
