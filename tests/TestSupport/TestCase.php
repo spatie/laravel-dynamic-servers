@@ -57,8 +57,22 @@ class TestCase extends Orchestra
 
     protected function processQueuedJobs()
     {
+        static $executedJobIds = [];
+
         foreach (Queue::pushedJobs() as $job) {
-            app()->call([$job[0]['job'], 'handle']);
+            $jobObject = $job[0]['job'];
+
+            if (in_array(spl_object_id($jobObject), $executedJobIds)) {
+                continue;
+            }
+
+            if ($jobObject->server) {
+                $jobObject->server = $jobObject->server->refresh();
+            }
+
+            app()->call([$jobObject, 'handle']);
+
+            $executedJobIds[] = spl_object_id($jobObject);
         }
     }
 

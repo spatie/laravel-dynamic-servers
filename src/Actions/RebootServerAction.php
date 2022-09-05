@@ -21,6 +21,10 @@ class RebootServerAction
 
         dispatch(new $rebootServerJobClass($server));
 
+        $server->update([
+            'reboot_requested_at' => null,
+        ]);
+
         $server->markAs(ServerStatus::Rebooting);
     }
 }

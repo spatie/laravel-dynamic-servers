@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
 use Spatie\DynamicServers\Enums\ServerStatus;
+use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Jobs\CreateServerJob;
 use Spatie\DynamicServers\Jobs\VerifyServerStartedJob;
 use Spatie\DynamicServers\Models\Server;
@@ -48,6 +49,27 @@ it('can start a server', function () {
     $this->processQueuedJobs();
     Queue::assertPushed(VerifyServerStartedJob::class, 1);
     expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
+
+    $this->processQueuedJobs();
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Running);
+});
+
+it('will restart a server when it has been marked to be restarted during start', function() {
+    $this->server->start();
+    Queue::assertPushed(CreateServerJob::class);
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
+
+    DynamicServers::reboot();
+
+    $this->processQueuedJobs();
+    Queue::assertPushed(VerifyServerStartedJob::class, 1);
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
+
+    $this->processQueuedJobs();
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Rebooting);
+
+    $this->processQueuedJobs();
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Rebooting);
 
     $this->processQueuedJobs();
     expect($this->server->refresh()->status)->toBe(ServerStatus::Running);

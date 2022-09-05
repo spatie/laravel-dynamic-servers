@@ -60,6 +60,5 @@ it('can stop a server', function () {
     expect($this->server->refresh()->status)->toBe(ServerStatus::Deleting);
 
     $this->processQueuedJobs();
-    ray($this->server->refresh());
     expect($this->server->refresh()->status)->toBe(ServerStatus::Deleted);
 });

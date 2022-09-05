@@ -52,4 +52,13 @@ class ServerFactory extends Factory
             ];
         });
     }
+
+    public function rebooting(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => ServerStatus::Rebooting->value,
+            ];
+        });
+    }
 }

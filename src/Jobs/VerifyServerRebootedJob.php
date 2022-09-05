@@ -24,6 +24,12 @@ class VerifyServerRebootedJob extends DynamicServerJob
 
                 event(new ServerRunningEvent($this->server, $previousStatus));
 
+                if ($this->server->rebootRequested()) {
+                    $this->server->reboot();
+
+                    return;
+                }
+
                 return;
             }
 

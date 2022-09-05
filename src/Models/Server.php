@@ -260,4 +260,9 @@ class Server extends Model
 
         return $this->status_updated_at->diffInMinutes() >= config('dynamic-servers.mark_server_as_hanging_after_minutes');
     }
+
+    public function rebootRequested(): bool
+    {
+        return ! is_null($this->reboot_requested_at);
+    }
 }

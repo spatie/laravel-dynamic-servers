@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
 use Spatie\DynamicServers\Enums\ServerStatus;
+use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Jobs\CreateServerJob;
 use Spatie\DynamicServers\Jobs\VerifyServerStartedJob;
 use Spatie\DynamicServers\Models\Server;
@@ -56,5 +57,40 @@ it('can reboot a server', function () {
     expect($this->server->refresh()->status)->toBe(ServerStatus::Rebooting);
 
     $this->processQueuedJobs();
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Rebooting);
+
+    $this->processQueuedJobs();
     expect($this->server->refresh()->status)->toBe(ServerStatus::Running);
+});
+
+it('will reboot as server again when a reboot is requested during a reboot', function() {
+    ray()->newScreen();
+
+    $this->server->start();
+    Queue::assertPushed(CreateServerJob::class);
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
+
+    $this->processQueuedJobs();
+    Queue::assertPushed(VerifyServerStartedJob::class, 1);
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
+
+    $this->processQueuedJobs();
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Running);
+
+    DynamicServers::reboot();
+    expect($this->server->refresh()->rebootRequested())->toBeFalse();
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Rebooting);
+
+    DynamicServers::reboot();
+    $this->processQueuedJobs();
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Rebooting);
+    expect($this->server->refresh()->rebootRequested())->toBeTrue();
+
+    $this->processQueuedJobs();
+    expect($this->server->refresh()->rebootRequested())->toBeFalse();
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Rebooting);
+
+    $this->processQueuedJobs();
+    expect($this->server->refresh()->rebootRequested())->toBeFalse();
+    expect($this->server->refresh()->status)->toBe(ServerStatus::Rebooting);
 });

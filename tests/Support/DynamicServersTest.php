@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Queue;
+use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Models\Server;
 
@@ -73,6 +74,33 @@ it('will not destroy servers of other types', function () {
 
     expect(Server::provisioned()->type('default')->get())->toHaveCount(1);
     expect(Server::provisioned()->type('other')->get())->toHaveCount(2);
+});
+
+it('will restart running servers', function() {
+    $server = Server::factory()->running()->create();
+
+    DynamicServers::reboot();
+
+    expect($server->refresh()->rebootRequested())->toBeFalse();
+    expect($server->refresh()->status)->toBe(ServerStatus::Rebooting);
+});
+
+it('will mark starting servers as to be restarted', function() {
+    $server = Server::factory()->starting()->create();
+
+    DynamicServers::reboot();
+
+    expect($server->refresh()->rebootRequested())->toBeTrue();
+    expect($server->refresh()->status)->toBe(ServerStatus::Starting);
+});
+
+it('will mark rebooting servers as to be rebooting again', function() {
+    $server = Server::factory()->rebooting()->create();
+
+    DynamicServers::reboot();
+
+    expect($server->refresh()->rebootRequested())->toBeTrue();
+    expect($server->refresh()->status)->toBe(ServerStatus::Rebooting);
 });
 
 dataset('serverTypes', [

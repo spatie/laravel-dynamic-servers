@@ -4,6 +4,7 @@ namespace Spatie\DynamicServers\Support;
 
 use Closure;
 use Spatie\DynamicServers\Actions\FindServersToStopAction;
+use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 use Spatie\DynamicServers\Support\ServerTypes\ServerTypes;
@@ -105,5 +106,14 @@ class DynamicServersManager
     public function serverTypeNames(): array
     {
         return app(ServerTypes::class)->allNames();
+    }
+
+    public function reboot(string $type = 'default')
+    {
+        Server::status(ServerStatus::Starting, ServerStatus::Rebooting)->update([
+            'reboot_requested_at' => now(),
+        ]);
+
+        Server::status(ServerStatus::Running)->each(fn(Server $server) => $server->reboot());
     }
 }
