@@ -4,14 +4,13 @@ namespace Spatie\DynamicServers\Actions;
 
 use Illuminate\Support\Collection;
 use Spatie\DynamicServers\Enums\ServerStatus;
-use \Spatie\DynamicServers\Models\Server;
+use Spatie\DynamicServers\Models\Server;
 
 class FindServersToStopAction
 {
     /**
-     * @param int $numberOfServersToStop
-     * @param string $type
-     *
+     * @param  int  $numberOfServersToStop
+     * @param  string  $type
      * @return Collection<Server>
      */
     public function execute(int $numberOfServersToStop, string $type): Collection
