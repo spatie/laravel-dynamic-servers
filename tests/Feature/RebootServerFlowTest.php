@@ -63,7 +63,7 @@ it('can reboot a server', function () {
     expect($this->server->refresh()->status)->toBe(ServerStatus::Running);
 });
 
-it('will reboot as server again when a reboot is requested during a reboot', function() {
+it('will reboot as server again when a reboot is requested during a reboot', function () {
     ray()->newScreen();
 
     $this->server->start();

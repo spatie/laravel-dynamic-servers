@@ -114,6 +114,6 @@ class DynamicServersManager
             'reboot_requested_at' => now(),
         ]);
 
-        Server::status(ServerStatus::Running)->each(fn(Server $server) => $server->reboot());
+        Server::status(ServerStatus::Running)->each(fn (Server $server) => $server->reboot());
     }
 }

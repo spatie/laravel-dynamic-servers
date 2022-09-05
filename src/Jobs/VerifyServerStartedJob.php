@@ -30,8 +30,6 @@ class VerifyServerStartedJob extends DynamicServerJob
                     return;
                 }
 
-
-
                 return;
             }
 
