@@ -22,6 +22,7 @@ use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\Config;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
+use Spatie\DynamicServers\Actions\RebootServerAction;
 
 class Server extends Model
 {
@@ -96,6 +97,16 @@ class Server extends Model
     {
         /** @var StopServerAction $action */
         $action = Config::action('stop_server');
+
+        $action->execute($this);
+
+        return $this;
+    }
+
+    public function reboot(): self
+    {
+        /** @var RebootServerAction $action */
+        $action = Config::action('reboot_server');
 
         $action->execute($this);
 
@@ -179,9 +190,9 @@ class Server extends Model
         $query->whereIn('status', $statuses);
     }
 
-    public function scopeStartingOrRunning(Builder $query): void
+    public function scopeProvisioned(Builder $query): void
     {
-        $this->scopeStatus($query, ServerStatus::Starting, ServerStatus::Running);
+        $this->scopeStatus($query, ...ServerStatus::provisionedStates());
     }
 
     public function scopeType(Builder $query, string $type): Builder
@@ -227,6 +238,16 @@ class Server extends Model
 
     public function isProbablyHanging(): bool
     {
+        if (in_array($this->status, [
+            ServerStatus::Running,
+            ServerStatus::Stopped,
+            ServerStatus::Errored,
+        ])) {
+            return false;
+        }
+
+
+
         if (! in_array($this->status, [
             ServerStatus::New,
             ServerStatus::Starting,

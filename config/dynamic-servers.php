@@ -21,6 +21,7 @@ return [
         'start_server' => Spatie\DynamicServers\Actions\StartServerAction::class,
         'stop_server' => Spatie\DynamicServers\Actions\StopServerAction::class,
         'find_servers_to_stop' => Spatie\DynamicServers\Actions\FindServersToStopAction::class,
+        'reboot_server' => Spatie\DynamicServers\Actions\RebootServerAction::class,
     ],
 
     'jobs' => [
@@ -30,6 +31,8 @@ return [
         'verify_server_stopped' => Spatie\DynamicServers\Jobs\VerifyServerStoppedJob::class,
         'delete_server' => Spatie\DynamicServers\Jobs\DeleteServerJob::class,
         'verify_server_deleted' => Spatie\DynamicServers\Jobs\VerifyServerDeletedJob::class,
+        'reboot_server' => Spatie\DynamicServers\Jobs\RebootServerJob::class,
+        'verify_server_rebooted' => Spatie\DynamicServers\Jobs\VerifyServerRebootedJob::class,
     ],
 
     /*
@@ -44,7 +47,7 @@ return [
     /*
      * The dynamic_servers table holds records of all dynamic servers.
      *
-     * Using Laravels prune command all stopped servers will be deleted
+     * Using Laravel's prune command all stopped servers will be deleted
      * after the given amount of days.
      */
     'prune_stopped_servers_from_local_db_after_days' => 7,

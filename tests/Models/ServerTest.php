@@ -107,7 +107,7 @@ it('will copy the configuration of a server type to the configuration attribute'
             ->provider('other_provider')
             ->configuration(function (Server $server) {
                 return [
-                    'hostname' => 'The servername: '.Str::slug($server->name),
+                    'hostname' => 'The servername: ' . Str::slug($server->name),
                 ];
             })
     );
@@ -133,19 +133,33 @@ it('can get the server count by status', function () {
         'deleting' => 0,
         'deleted' => 0,
         'errored' => 0,
+        'rebooting' => 0,
         'hanging' => 0,
     ]);
 });
 
-it('can determine that the server is probably hanging', function () {
+it('can determine that the server is probably hanging', function (
+    ServerStatus $status,
+    bool $willBeMarkedAsHanging,
+) {
     testTime()->freeze();
     /** @var Server $server */
-    $server = Server::factory()->create()->markAs(ServerStatus::Starting);
+    $server = Server::factory()->create()->markAs($status);
     expect($server->isProbablyHanging())->toBeFalse();
 
     testTime()->addMinutes(config('dynamic-servers.mark_server_as_hanging_after_minutes'))->subSecond();
     expect($server->isProbablyHanging())->toBeFalse();
 
     testTime()->addSecond();
-    expect($server->isProbablyHanging())->toBeTrue();
-});
+    expect($server->isProbablyHanging())->toBe($willBeMarkedAsHanging);
+})->with([
+    [ServerStatus::Stopped, false],
+    [ServerStatus::Running, false],
+    [ServerStatus::Errored, false],
+    [ServerStatus::Starting, true],
+    [ServerStatus::Paused, true],
+    [ServerStatus::Stopping, true],
+    [ServerStatus::Deleting, true],
+    [ServerStatus::Deleted, true],
+    [ServerStatus::Rebooting, true],
+]);

@@ -38,7 +38,7 @@ class DynamicServersManager
     {
         $startingAndRunningServerCount = Server::query()
             ->where('type', $type)
-            ->startingOrRunning()
+            ->provisioned()
             ->count();
 
         if ($startingAndRunningServerCount < $desiredCount) {

@@ -6,7 +6,7 @@ use Exception;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Events\ServerRunningEvent;
 
-class VerifyServerStartedJob extends DynamicServerJob
+class VerifyServerRebootedJob extends DynamicServerJob
 {
     public function handle()
     {

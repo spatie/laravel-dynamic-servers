@@ -11,13 +11,13 @@ beforeEach(function () {
 it('can increase the number of servers by 1', function (string $serverType) {
     DynamicServers::increase(type: $serverType);
 
-    expect(Server::startingOrRunning()->type($serverType)->get())->toHaveCount(1);
+    expect(Server::provisioned()->type($serverType)->get())->toHaveCount(1);
 })->with('serverTypes');
 
 it('can increase the number of servers by a given number', function (string $serverType) {
     DynamicServers::increase(3, $serverType);
 
-    expect(Server::startingOrRunning()->get())->toHaveCount(3);
+    expect(Server::provisioned()->get())->toHaveCount(3);
 })->with('serverTypes');
 
 it('can decrease the number of servers by 1', function (string $serverType) {
@@ -25,7 +25,7 @@ it('can decrease the number of servers by 1', function (string $serverType) {
 
     DynamicServers::decrease(type: $serverType);
 
-    expect(Server::startingOrRunning()->type($serverType)->get())->toHaveCount(2);
+    expect(Server::provisioned()->type($serverType)->get())->toHaveCount(2);
 })->with('serverTypes');
 
 it('can decrease the number of servers by a given number', function (string $serverType) {
@@ -33,7 +33,7 @@ it('can decrease the number of servers by a given number', function (string $ser
 
     DynamicServers::decrease(2, $serverType);
 
-    expect(Server::startingOrRunning()->get())->toHaveCount(1);
+    expect(Server::provisioned()->get())->toHaveCount(1);
 })->with('serverTypes');
 
 it('will not throw an exception when decreasing more servers than available', function (string $serverType) {
@@ -41,7 +41,7 @@ it('will not throw an exception when decreasing more servers than available', fu
 
     DynamicServers::decrease(6, $serverType);
 
-    expect(Server::startingOrRunning()->type($serverType)->get())->toHaveCount(0);
+    expect(Server::provisioned()->type($serverType)->get())->toHaveCount(0);
 })->with('serverTypes');
 
 it('can ensure a given number of servers', function (string $serverType) {
@@ -49,15 +49,15 @@ it('can ensure a given number of servers', function (string $serverType) {
 
     DynamicServers::ensure(3, $serverType);
 
-    expect(Server::startingOrRunning()->type($serverType)->get())->toHaveCount(3);
+    expect(Server::provisioned()->type($serverType)->get())->toHaveCount(3);
 
     DynamicServers::ensure(5, $serverType);
 
-    expect(Server::startingOrRunning()->type($serverType)->get())->toHaveCount(5);
+    expect(Server::provisioned()->type($serverType)->get())->toHaveCount(5);
 
     DynamicServers::ensure(2, $serverType);
 
-    expect(Server::startingOrRunning()->type($serverType)->get())->toHaveCount(2);
+    expect(Server::provisioned()->type($serverType)->get())->toHaveCount(2);
 })->with('serverTypes');
 
 it('will not destroy servers of other types', function () {
@@ -66,13 +66,13 @@ it('will not destroy servers of other types', function () {
 
     DynamicServers::ensure(1);
 
-    expect(Server::startingOrRunning()->type('default')->get())->toHaveCount(1);
-    expect(Server::startingOrRunning()->type('other')->get())->toHaveCount(3);
+    expect(Server::provisioned()->type('default')->get())->toHaveCount(1);
+    expect(Server::provisioned()->type('other')->get())->toHaveCount(3);
 
     DynamicServers::ensure(2, 'other');
 
-    expect(Server::startingOrRunning()->type('default')->get())->toHaveCount(1);
-    expect(Server::startingOrRunning()->type('other')->get())->toHaveCount(2);
+    expect(Server::provisioned()->type('default')->get())->toHaveCount(1);
+    expect(Server::provisioned()->type('other')->get())->toHaveCount(2);
 });
 
 dataset('serverTypes', [

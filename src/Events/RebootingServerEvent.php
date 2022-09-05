@@ -2,14 +2,12 @@
 
 namespace Spatie\DynamicServers\Events;
 
-use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Models\Server;
 
-class ServerRunningEvent
+class RebootingServerEvent
 {
     public function __construct(
         public Server $server,
-        public ServerStatus $previousStatus,
     ) {
     }
 }

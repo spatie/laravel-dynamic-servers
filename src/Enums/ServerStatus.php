@@ -2,6 +2,8 @@
 
 namespace Spatie\DynamicServers\Enums;
 
+use Spatie\DynamicServers\Models\Server;
+
 enum ServerStatus: string
 {
     case New = 'new';
@@ -13,5 +15,15 @@ enum ServerStatus: string
     case Deleting = 'deleting';
     case Deleted = 'deleted';
     case Errored = 'errored';
+    case Rebooting = 'rebooting';
     case Hanging = 'hanging';
+
+    public static function provisionedStates(): array
+    {
+        return [
+            self::Starting,
+            self::Running,
+            self::Rebooting,
+        ];
+    }
 }
