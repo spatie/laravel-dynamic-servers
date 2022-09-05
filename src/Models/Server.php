@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Spatie\DynamicServers\Actions\GenerateServerNameAction;
+use Spatie\DynamicServers\Actions\RebootServerAction;
 use Spatie\DynamicServers\Actions\StartServerAction;
 use Spatie\DynamicServers\Actions\StopServerAction;
 use Spatie\DynamicServers\Enums\ServerStatus;
@@ -22,7 +23,6 @@ use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 use Spatie\DynamicServers\Support\Config;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
-use Spatie\DynamicServers\Actions\RebootServerAction;
 
 class Server extends Model
 {
@@ -245,8 +245,6 @@ class Server extends Model
         ])) {
             return false;
         }
-
-
 
         if (! in_array($this->status, [
             ServerStatus::New,

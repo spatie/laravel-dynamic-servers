@@ -2,8 +2,6 @@
 
 namespace Spatie\DynamicServers\Enums;
 
-use Spatie\DynamicServers\Models\Server;
-
 enum ServerStatus: string
 {
     case New = 'new';
