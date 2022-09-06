@@ -1,6 +1,6 @@
 ---
 title: Using multiple server types
-weight: 4
+weight: 5
 ---
 
 When configuring the package, you probably will have [configured a default server type](TODO: add link).
@@ -49,10 +49,10 @@ DynamicServers::reboot() // reboot all servers of type `default`
 DynamicServers::reboot('big') // reboot all servers of type `big`
 
 DynamicServers::increase() // add one more default server
-DynamicServers::increase('big') // add one more `big` server
+DynamicServers::increase(type: 'big') // add one more `big` server
 
-DynamicServers::decrease() // destroy one more default server
-DynamicServers::decrease('big') // destroy one more `big` server
+DynamicServers::decrease() // destroy one default server
+DynamicServers::decrease(type: 'big') // destroy one `big` server
 ```
 
 

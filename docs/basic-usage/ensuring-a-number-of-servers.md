@@ -1,6 +1,6 @@
 ---
 title: Ensuring a number of servers
-weight: 2
+weight: 3
 ---
 
 You can use the `ensure($numberOfServerNeeded)` method to make sure that the given number of servers is available.

@@ -1,6 +1,6 @@
 ---
-title: Rebooting server
-weight: 3
+title: Rebooting servers
+weight: 4
 ---
 
 Should you for some reason have the reboot servers, you can do so by calling `reboot`.

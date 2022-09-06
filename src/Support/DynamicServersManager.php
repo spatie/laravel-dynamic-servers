@@ -36,21 +36,21 @@ class DynamicServersManager
 
     public function ensure(int $desiredCount, string $type = 'default'): self
     {
-        $startingAndRunningServerCount = Server::query()
+        $provisionedServerCount = Server::query()
             ->where('type', $type)
             ->provisioned()
             ->count();
 
-        if ($startingAndRunningServerCount < $desiredCount) {
-            $extraServersNeeded = $desiredCount - $startingAndRunningServerCount;
+        if ($provisionedServerCount < $desiredCount) {
+            $extraServersNeeded = $desiredCount - $provisionedServerCount;
 
             $this->increaseCount($extraServersNeeded, $type);
 
             return $this;
         }
 
-        if ($startingAndRunningServerCount > $desiredCount) {
-            $lessServersNeeded = $startingAndRunningServerCount - $desiredCount;
+        if ($provisionedServerCount > $desiredCount) {
+            $lessServersNeeded = $provisionedServerCount - $desiredCount;
 
             $this->decreaseCount($lessServersNeeded, $type);
 
@@ -115,5 +115,10 @@ class DynamicServersManager
         ]);
 
         Server::status(ServerStatus::Running)->each(fn (Server $server) => $server->reboot());
+    }
+
+    public function provisionedCount(): int
+    {
+        return Server::provisioned()->count();
     }
 }
