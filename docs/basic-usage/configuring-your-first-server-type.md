@@ -15,7 +15,7 @@ use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 use \Spatie\DynamicServers\Support\DynamicServersManager;
 
-// typically, in `app/Providers/DynamicServerProvider
+// typically, in `app/Providers/DynamicServerProvider`
 
 /*
  * Let's set up the default server type  
