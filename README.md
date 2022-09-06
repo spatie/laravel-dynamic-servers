@@ -5,8 +5,9 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-dynamic-servers/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/spatie/laravel-dynamic-servers/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-dynamic-servers.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-dynamic-servers)
 
-This package can help you start and stop servers when you need them. The prime use case is to spin up extra working
-servers that can help you process the workload on queues.
+This package can help you start and stop servers when you need them. The prime use case is to spin up extra working servers that can help you process the workload on queues.
+
+You can think of this as a sort of PHP based version of Kubernetes that has 5% of its features, but covers that 80% use case. For most PHP and Laravel developers, this package will also be easier to learn and use.
 
 Typically, on your hosting provider, you would prepare a server snapshot, that will be used as a template when starting
 new servers.
