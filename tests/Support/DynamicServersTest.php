@@ -103,7 +103,7 @@ it('will mark rebooting servers as to be rebooting again', function () {
     expect($server->refresh()->status)->toBe(ServerStatus::Rebooting);
 });
 
-it('can get the provisioned servers count', function() {
+it('can get the provisioned servers count', function () {
     expect(DynamicServers::provisionedCount())->toBe(0);
 
     Server::factory()->starting()->create();
@@ -117,7 +117,6 @@ it('can get the provisioned servers count', function() {
 
     Server::factory()->stopping()->create();
     expect(DynamicServers::provisionedCount())->toBe(3);
-
 });
 
 dataset('serverTypes', [
