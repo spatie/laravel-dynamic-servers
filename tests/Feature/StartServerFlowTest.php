@@ -54,7 +54,7 @@ it('can start a server', function () {
     expect($this->server->refresh()->status)->toBe(ServerStatus::Running);
 });
 
-it('will restart a server when it has been marked to be restarted during start', function() {
+it('will restart a server when it has been marked to be restarted during start', function () {
     $this->server->start();
     Queue::assertPushed(CreateServerJob::class);
     expect($this->server->refresh()->status)->toBe(ServerStatus::Starting);
