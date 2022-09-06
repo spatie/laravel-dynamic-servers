@@ -2,15 +2,13 @@
 
 return [
     'providers' => [
-        'up_cloud' => [
-            'class' => Spatie\DynamicServers\ServerProviders\UpCloud\UpCloudServerProvider::class,
-            'maximum_servers_in_account' => 20,
+        'your_provider' => [
+            'class' => App\Support\YourProvider::class,
             'options' => [
-                'username' => env('UP_CLOUD_USER_NAME'),
-                'password' => env('UP_CLOUD_PASSWORD'),
-                'disk_image' => env('UP_CLOUD_DISK_IMAGE_UUID'),
+                'username' => env('YOUR_PROVIDER_USER_NAME'),
+                'password' => env('YOUR_PROVIDER_USER_NAME'),
             ],
-        ],
+        ]
     ],
 
     /*

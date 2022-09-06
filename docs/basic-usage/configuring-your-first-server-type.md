@@ -28,9 +28,9 @@ $serverType = ServerType::default()
      */
      *  
     ->provider('up_cloud') 
-    ->configuration(function (DynamicServersManager $server) {
+    ->configuration(function (Server $server) {
         /*
-         * This payload will be given to the Upcloud API when creating a server
+         * These values will be given to the Upcloud API when creating a server
          */
         return [
             'server' => [

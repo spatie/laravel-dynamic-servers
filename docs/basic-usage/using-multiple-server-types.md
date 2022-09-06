@@ -15,9 +15,9 @@ $serverType = ServerType::new('big')
      * `providers` key of the `dynamic-servers` config file.
      */
     ->provider('up_cloud') 
-    ->configuration(function (DynamicServersManager $server) {
+    ->configuration(function (Server $server) {
         /*
-         * This payload will be given to the server provider when creating a server
+         * These values can be used in the server provider
          */
         return [
                 // whatever you like
