@@ -33,7 +33,11 @@ class StartServerAction
 
     protected function allowedToStartServer(Server $server): bool
     {
-        if (true) {
+        $amountOfServers = $this->getCurrentServerCount($server);
+
+        $limit = config("dynamic-servers.providers.{$server->provider}.maximum_servers_in_account", 20);
+
+        if ($amountOfServers < $limit) {
             return true;
         }
 
@@ -42,5 +46,16 @@ class StartServerAction
         if (config('dynamic-servers.throw_exception_when_hitting_maximum_server_limit')) {
             throw CannotStartServer::limitHit();
         }
+    }
+
+    protected function getCurrentServerCount(Server $server): int
+    {
+        $cacheKey = "server-provider-{$server->provider}-server-count";
+
+        cache()->remember("server-provider-{$server->provider}-server-count", 60, function () use ($server) {
+            return $server->serverProvider()->currentServerCount();
+        });
+
+        return cache()->increment($cacheKey);
     }
 }

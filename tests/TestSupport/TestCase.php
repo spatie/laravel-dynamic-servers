@@ -81,7 +81,9 @@ class TestCase extends Orchestra
         $this->setDefaultServerProvider(DummyServerProvider::class);
 
         $providerConfig = config('dynamic-servers.providers');
-        $providerConfig['other_provider'] = ['class' => 'Dummy value'];
+        $providerConfig['other_provider'] = [
+            'class' => DummyServerProvider::class,
+        ];
 
         config()->set('dynamic-servers.providers', $providerConfig);
 
