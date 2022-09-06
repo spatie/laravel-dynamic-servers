@@ -1,8 +1,5 @@
 <?php
 
-// TODO: install command, copy service provider
-// TODO: reboot (+ flag on model to reboot)
-
 return [
     'providers' => [
         'up_cloud' => [
@@ -16,6 +13,11 @@ return [
         ],
     ],
 
+    /*
+     * Overriding these actions will give you fine-grained control over
+     * how we handle your servers. In most cases, it's fine to use
+     * the defaults.
+     */
     'actions' => [
         'generate_server_name' => Spatie\DynamicServers\Actions\GenerateServerNameAction::class,
         'start_server' => Spatie\DynamicServers\Actions\StartServerAction::class,
@@ -24,6 +26,11 @@ return [
         'reboot_server' => Spatie\DynamicServers\Actions\RebootServerAction::class,
     ],
 
+    /*
+     * Overriding these jobs will give you fine-grained control over
+     * how we create, stop, delete and reboot your servers. In most cases,
+     * it's fine to use the defaults.
+     */
     'jobs' => [
         'create_server' => Spatie\DynamicServers\Jobs\CreateServerJob::class,
         'verify_server_started' => Spatie\DynamicServers\Jobs\VerifyServerStartedJob::class,
