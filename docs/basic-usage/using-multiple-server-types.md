@@ -5,7 +5,7 @@ weight: 5
 
 When configuring the package, you probably will have [configured a default server type](/docs/laravel-dynamic-servers/v1/basic-usage/configuring-your-first-server-type).
 
-The package can handle multiple servers types. Here's how you can configure another server type using the `new` method.
+The package can handle multiple server types. Here's how you can configure another server type using the `new` method.
 
 ```php
 $serverType = ServerType::new('big')
