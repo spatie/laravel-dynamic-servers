@@ -3,8 +3,9 @@ title: Introduction
 weight: 1
 ---
 
-This package can help you start and stop servers when you need them. The prime use case is to spin up extra working
-servers that can help you process the workload on queues. 
+This package can help you start and stop servers when you need them. The prime use case is to spin up extra working servers, based on a server image, that can help you process the workload on queues. 
+
+You can think of this as a sort of PHP based version of Kubernetes that has 5% of its features, but covers that 80% use case. For most PHP and Laravel developers, this package will also be easier to learn and use.
 
 Typically, on your hosting provider, you would prepare a server snapshot, that will be used as a template when starting new servers.
 
