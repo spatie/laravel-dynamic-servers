@@ -18,14 +18,16 @@ use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Support\DynamicServersManager;
 
 /*
- * The package will call the closure passed to `determineServerCount` every minute
+ * The package will call the closure passed 
+ * to `determineServerCount` every minute
  */
 DynamicServers::determineServerCount(function(DynamicServersManager $servers) {
    /*
     * First, we'll calculate the number of servers needed. 
     * 
-    * In this example, we will take a look at Horizon's reported waiting time.
-    * Of course, in your project you can calculate the number of servers needed however you want.    
+    * In this example, we will take a look at Horizon's 
+    * reported waiting time. Of course, in your project you can 
+    * calculate the number of servers needed however you want.    
     */
     $waitTimeInMinutes = app(WaitTimeCalculator::class)->calculate('default');
     $numberOfServersNeeded = round($waitTimeInMinutes / 10);
@@ -33,13 +35,16 @@ DynamicServers::determineServerCount(function(DynamicServersManager $servers) {
    /*
     * Next, we will pass the number of servers needed to the `ensure` method.
     * 
-    * If there currently are less that that number of servers available, the package will start new ones.
-    * If there are currently more than that number of servers running, the package will stop a few servers.
+    * If there currently are less that that number of servers available,
+    * the package will start new ones.
+    * 
+    * If there are currently more than that number of servers running,
+    *  the package will stop a few servers.
     */
-    $servers->ensure($numberOfServersNeeded); // the package will make sure that this number of servers is available
+    $servers->ensure($numberOfServersNeeded);
 });
 ```
 
-Out of the box, the package supports [UpCloud](https://upcloud.com).  You can create [your own server provider](TODO: add link) to add support for your favourite hosting service.
+Out of the box, the package supports [UpCloud](https://upcloud.com).  You can create [your own server provider](/docs/laravel-dynamic-servers/v1/advanced-usage/creating-your-own-server-provider) to add support for your favourite hosting service.
 
 

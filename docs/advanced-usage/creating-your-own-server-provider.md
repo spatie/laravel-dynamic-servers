@@ -1,4 +1,4 @@
 ---
-title: Configuring your own server provider
+title: Creating your own server provider
 weight: 1
 ---

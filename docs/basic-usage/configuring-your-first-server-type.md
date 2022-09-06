@@ -5,7 +5,7 @@ weight: 2
 
 Before starting to use the package, you should configure the `default` server type. This server type defines which hosting provider should be used, and the payload that should be sent to your hosting provider when creating a new service. 
 
-Here's an example that sets up a default server type using the `up_cloud` server provider. Want to use another server provider? No problem, here's how you can [add support for your favourite provider](TODO:add link).
+Here's an example that sets up a default server type using the `up_cloud` server provider. Want to use another server provider? No problem, here's how you can [add support for your favourite provider](/docs/laravel-dynamic-servers/v1/advanced-usage/creating-your-own-server-provider).
 
 The following configuration has a payload that will set up a new server by cloning a given image.
 
