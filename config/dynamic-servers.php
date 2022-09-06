@@ -8,7 +8,7 @@ return [
                 'username' => env('YOUR_PROVIDER_USER_NAME'),
                 'password' => env('YOUR_PROVIDER_USER_NAME'),
             ],
-        ]
+        ],
     ],
 
     /*
