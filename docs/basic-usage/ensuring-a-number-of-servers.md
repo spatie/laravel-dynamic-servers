@@ -3,7 +3,7 @@ title: Ensuring a number of servers
 weight: 3
 ---
 
-You can use the `ensure($numberOfServerNeeded)` method to make sure that the given number of servers is available.
+You can use the `ensure($numberOfServerNeeded)` method to make sure that the given number of servers are available.
 
 ```php
 use Spatie\DynamicServers\Facades\DynamicServers;
