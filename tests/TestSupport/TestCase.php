@@ -105,6 +105,6 @@ class TestCase extends Orchestra
 
     public function upCloudHasBeenConfigured(): bool
     {
-        return config()->has('dynamic-servers.providers.up_cloud.options.username');
+        return config('dynamic-servers.providers.up_cloud.options.username') !== null;
     }
 }
