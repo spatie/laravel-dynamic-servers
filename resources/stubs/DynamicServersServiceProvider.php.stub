@@ -13,7 +13,9 @@ class DynamicServersServiceProvider extends ServiceProvider
     public function register()
     {
         /*
-         * Define a server type and register it, customize this to your needs
+         * Define a server type and register it
+         *
+         * Customize this to your needs.
          */
         $serverType = ServerType::default()
             ->provider('up_cloud')
