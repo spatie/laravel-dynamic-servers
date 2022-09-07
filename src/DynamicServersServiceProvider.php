@@ -35,9 +35,10 @@ class DynamicServersServiceProvider extends PackageServiceProvider
                     ->askToRunMigrations()
                     ->askToStarRepoOnGitHub('spatie/laravel-dynamic-servers')
                     ->endWith(function (InstallCommand $installCommand) {
+                        $installCommand->line('');
                         $installCommand->info('You can view all docs at https://spatie.be/docs/laravel-dynamic-servers');
                         $installCommand->line('');
-                        $installCommand->info('Thank you very much for installing this package');
+                        $installCommand->info('Thank you very much for installing this package!');
                     });
             });
     }
