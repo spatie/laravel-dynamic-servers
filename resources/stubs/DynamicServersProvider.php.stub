@@ -8,7 +8,7 @@ use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 
-class DynamicServersServiceProvider extends ServiceProvider
+class DynamicServersProvider extends ServiceProvider
 {
     public function register()
     {

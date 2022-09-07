@@ -21,7 +21,7 @@ class DynamicServersServiceProvider extends PackageServiceProvider
             ->name('laravel-dynamic-servers')
             ->hasConfigFile()
             ->hasMigration('create_dynamic_servers_table')
-            ->publishesServiceProvider('DynamicServersServiceProvider')
+            ->publishesServiceProvider('DynamicServersProvider')
             ->hasCommands(
                 DetectHangingServersCommand::class,
                 ListDynamicServersCommand::class,
@@ -35,6 +35,9 @@ class DynamicServersServiceProvider extends PackageServiceProvider
                     ->askToRunMigrations()
                     ->askToStarRepoOnGitHub('spatie/laravel-dynamic-servers')
                     ->endWith(function (InstallCommand $installCommand) {
+                        $installCommand->line('');
+                        $installCommand->info("We've added app\Providers\DynamicServersProvider to your project.");
+                        $installCommand->info("Feel free to customize it to your needs.");
                         $installCommand->line('');
                         $installCommand->info('You can view all docs at https://spatie.be/docs/laravel-dynamic-servers');
                         $installCommand->line('');
