@@ -2,12 +2,13 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 
-class DynamicServersServiceProvider
+class DynamicServersServiceProvider extends ServiceProvider
 {
     public function register()
     {
