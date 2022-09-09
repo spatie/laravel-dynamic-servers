@@ -6,17 +6,13 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Spatie\DynamicServers\Facades\DynamicServers;
 use Spatie\DynamicServers\Models\Server;
+use Spatie\DynamicServers\Support\DynamicServersManager;
 use Spatie\DynamicServers\Support\ServerTypes\ServerType;
 
 class DynamicServersProvider extends ServiceProvider
 {
     public function register()
     {
-        /*
-         * Define a server type and register it
-         *
-         * Customize this to your needs.
-         */
         $serverType = ServerType::default()
             ->provider('up_cloud')
             ->configuration(function (Server $server) {
@@ -41,5 +37,15 @@ class DynamicServersProvider extends ServiceProvider
             });
 
         DynamicServers::registerServerType($serverType);
+
+        DynamicServers::determineServerCount(function (DynamicServersManager $servers) {
+            /*
+             * Add logic here to determine how many servers you need.
+             * 
+            $numberOfServerNeeded = ...; 
+            
+            $servers->ensure($numberOfServerNeeded);
+            */
+        });
     }
 }

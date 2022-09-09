@@ -37,7 +37,7 @@ class DynamicServersServiceProvider extends PackageServiceProvider
                     ->endWith(function (InstallCommand $installCommand) {
                         $installCommand->line('');
                         $installCommand->info("We've added app\Providers\DynamicServersProvider to your project.");
-                        $installCommand->info("Feel free to customize it to your needs.");
+                        $installCommand->info('Feel free to customize it to your needs.');
                         $installCommand->line('');
                         $installCommand->info('You can view all docs at https://spatie.be/docs/laravel-dynamic-servers');
                         $installCommand->line('');
