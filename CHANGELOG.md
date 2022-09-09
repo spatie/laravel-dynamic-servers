@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-dynamic-servers` will be documented in this file.
 
+## 0.0.5 - 2022-09-09
+
+**Full Changelog**: https://github.com/spatie/laravel-dynamic-servers/compare/0.0.4...0.0.5
+
 ## 0.0.3 - 2022-09-07
 
 ### What's Changed
