@@ -1,5 +1,5 @@
 ---
-title: Dealing with hanging servers
+title: Fired Events
 weight: 5
 ---
 
