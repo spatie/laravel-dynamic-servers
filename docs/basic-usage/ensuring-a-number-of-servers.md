@@ -49,7 +49,7 @@ DynamicServers::determineServerCount(function(DynamicServersManager $servers) {
 });
 ```
 
-In addition to using `determineServerCount`, you could also listen for  Horizon's `LongWaitDetected` event. This way, server will be started immediately when your queue grows long, and we don't have to wait until the schedule is called.
+In addition to using `determineServerCount`, you could also listen for  Horizon's `LongWaitDetected` event. This way, servers will be started immediately when your queue grows long, and we don't have to wait until the schedule is called.
 
 ```php
 use Illuminate\Support\Facades\Event;
