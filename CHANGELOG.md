@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-dynamic-servers` will be documented in this file.
 
+## 0.0.7 - 2022-09-13
+
+- Fix an error when server limit was reached
+
+**Full Changelog**: https://github.com/spatie/laravel-dynamic-servers/compare/0.0.6...0.0.7
+
 ## 0.0.6 - 2022-09-13
 
 ### What's Changed
