@@ -46,6 +46,8 @@ class StartServerAction
         if (config('dynamic-servers.throw_exception_when_hitting_maximum_server_limit')) {
             throw CannotStartServer::limitHit();
         }
+
+        return false;
     }
 
     protected function getCurrentServerCount(Server $server): int
