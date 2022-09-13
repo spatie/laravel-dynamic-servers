@@ -42,6 +42,12 @@ return [
         'verify_server_rebooted' => Spatie\DynamicServers\Jobs\VerifyServerRebootedJob::class,
     ],
 
+    /**
+     * Which queue the server jobs should be processed on
+     * by default this will use your default queue.
+     */
+    'queue' => null,
+
     /*
      * When we detect that a server is taking longer than this amount of minutes
      * to start or stop, we'll mark it has hanging, and will not try to use it anymore

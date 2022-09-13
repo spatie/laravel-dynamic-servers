@@ -23,6 +23,7 @@ abstract class DynamicServerJob implements ShouldQueue, ShouldBeUnique
 
     public function __construct(public Server $server)
     {
+        $this->onQueue(config('dynamic-servers.queue'));
     }
 
     public function uniqueId()
