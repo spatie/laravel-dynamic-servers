@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-dynamic-servers` will be documented in this file.
 
+## 0.0.6 - 2022-09-13
+
+### What's Changed
+
+- Delete pint.json by @rubenvanerk in https://github.com/spatie/laravel-dynamic-servers/pull/6
+- Add queue config by @riasvdv in https://github.com/spatie/laravel-dynamic-servers/pull/7
+
+### New Contributors
+
+- @rubenvanerk made their first contribution in https://github.com/spatie/laravel-dynamic-servers/pull/6
+- @riasvdv made their first contribution in https://github.com/spatie/laravel-dynamic-servers/pull/7
+
+**Full Changelog**: https://github.com/spatie/laravel-dynamic-servers/compare/0.0.5...0.0.6
+
 ## 0.0.5 - 2022-09-09
 
 **Full Changelog**: https://github.com/spatie/laravel-dynamic-servers/compare/0.0.4...0.0.5
