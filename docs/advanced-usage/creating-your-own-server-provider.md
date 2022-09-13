@@ -6,6 +6,10 @@ weight: 1
 
 Out of the box, this package supports [UpCloud](https://upcloud.com), but it's easy to support your favourite hosting service as well.
 
+## Community maintained drivers
+
+- [Digital Ocean](https://github.com/sidis405/laravel-dynamic-servers-digital-ocean)
+
 ## Do you want to create a driver?
 
 If you have created a custom server provider, do not PR it to this package. We don't want to maintain it.
