@@ -92,7 +92,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 - [Freek Van der herten](https://twitter.com/freekmurze)
 - [All Contributors](../../contributors)
 
-This idea was... 🥁 spawned by streams on blog posts by Jason McCreary on [Spawning workers based on queue workload](https://jasonmccreary.me/articles/spawing-worker-servers-job-queue-load-laravel/).
+This idea was... 🥁 spawned by streams and a blog post by Jason McCreary on [Spawning workers based on queue workload](https://jasonmccreary.me/articles/spawing-worker-servers-job-queue-load-laravel/).
 
 ## License
 
