@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-dynamic-servers` will be documented in this file.
 
+## 1.0.0 - 2022-09-26
+
+- stable release
+
 ## 0.0.7 - 2022-09-13
 
 - Fix an error when server limit was reached
