@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-dynamic-servers` will be documented in this file.
 
+## 1.0.1 - 2023-01-04
+
+### What's Changed
+
+- Fix an issue where the TTL of the server count would reset to -1
+- Bump dependabot/fetch-metadata from 1.3.3 to 1.3.4 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/9
+- Bump dependabot/fetch-metadata from 1.3.4 to 1.3.5 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/10
+- Bump aglipanci/laravel-pint-action from 1.0.0 to 2.1.0 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/11
+
+### New Contributors
+
+- @dependabot made their first contribution in https://github.com/spatie/laravel-dynamic-servers/pull/9
+
+**Full Changelog**: https://github.com/spatie/laravel-dynamic-servers/compare/1.0.0...1.0.1
+
 ## 1.0.0 - 2022-09-26
 
 - stable release
