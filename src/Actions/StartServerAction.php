@@ -2,6 +2,7 @@
 
 namespace Spatie\DynamicServers\Actions;
 
+use Illuminate\Support\Facades\Cache;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Events\ServerLimitHitEvent;
 use Spatie\DynamicServers\Exceptions\CannotStartServer;
@@ -54,10 +55,10 @@ class StartServerAction
     {
         $cacheKey = "server-provider-{$server->provider}-server-count";
 
-        cache()->remember("server-provider-{$server->provider}-server-count", 60, function () use ($server) {
-            return $server->serverProvider()->currentServerCount();
-        });
+        $count = Cache::get($cacheKey, $server->serverProvider()->currentServerCount()) + 1;
 
-        return cache()->increment($cacheKey);
+        Cache::put($cacheKey, $count, 60);
+
+        return $count;
     }
 }
