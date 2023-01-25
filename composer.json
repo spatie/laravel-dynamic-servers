@@ -23,7 +23,7 @@
     "require": {
         "php": "^8.1",
         "illuminate/contracts": "^9.0|^10.0",
-        "illuminate/http": "^9.26",
+        "illuminate/http": "^9.26|^10.0",
         "spatie/laravel-package-tools": "^1.13.3"
     },
     "require-dev": {
