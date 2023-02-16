@@ -9,8 +9,6 @@ use Spatie\DynamicServers\Models\Server;
 class FindServersToStopAction
 {
     /**
-     * @param  int  $numberOfServersToStop
-     * @param  string  $type
      * @return Collection<Server>
      */
     public function execute(int $numberOfServersToStop, string $type): Collection
