@@ -61,6 +61,6 @@ Event::listen(function (LongWaitDetected $event) {
     
     $numberOfServersNeeded = round($waitTimeInMinutes / 10);
     
-    $servers->ensure($numberOfServersNeeded);
+    DynamicServers::ensure($numberOfServersNeeded);
 });
 ```
