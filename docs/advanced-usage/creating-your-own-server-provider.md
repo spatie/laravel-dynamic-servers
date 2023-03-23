@@ -9,6 +9,7 @@ Out of the box, this package supports [UpCloud](https://upcloud.com), but it's e
 ## Community maintained drivers
 
 - [Digital Ocean](https://github.com/sidis405/laravel-dynamic-servers-digital-ocean)
+- [Vultr](https://github.com/AbdullahFaqeir/laravel-dynamic-servers-vultr)
 
 ## Do you want to create a driver?
 
