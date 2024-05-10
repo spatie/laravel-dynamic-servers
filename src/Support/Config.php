@@ -10,7 +10,7 @@ use Spatie\DynamicServers\Exceptions\JobDoesNotExist;
 
 class Config
 {
-    public static function providerOption(string $providerName, string $key = null): mixed
+    public static function providerOption(string $providerName, ?string $key = null): mixed
     {
         $providerOptions = config("dynamic-servers.providers.{$providerName}.options");
 

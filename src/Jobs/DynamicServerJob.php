@@ -10,7 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\DynamicServers\Models\Server;
 
-abstract class DynamicServerJob implements ShouldQueue, ShouldBeUnique
+abstract class DynamicServerJob implements ShouldBeUnique, ShouldQueue
 {
     public $uniqueFor = 3600;
 

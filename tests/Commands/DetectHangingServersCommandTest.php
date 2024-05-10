@@ -1,9 +1,10 @@
 <?php
 
-use function Pest\Laravel\artisan;
 use Spatie\DynamicServers\Commands\DetectHangingServersCommand;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Models\Server;
+
+use function Pest\Laravel\artisan;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {

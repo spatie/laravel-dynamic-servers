@@ -12,6 +12,7 @@ use Spatie\DynamicServers\Models\Server;
 use Spatie\DynamicServers\Tests\TestSupport\ServerProviders\EndlessDeleteServerProvider;
 use Spatie\DynamicServers\Tests\TestSupport\ServerProviders\EndlessStartServerProvider;
 use Spatie\DynamicServers\Tests\TestSupport\ServerProviders\EndlessStopServerProvider;
+
 use function Spatie\PestPluginTestTime\testTime;
 
 it('can detect that the server is hanging when stopping takes too long', function (

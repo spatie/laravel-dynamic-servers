@@ -27,8 +27,8 @@ class ServerType
 
     public function __construct(
         string $name,
-        string $providerName = null,
-        string $configuration = null
+        ?string $providerName = null,
+        ?string $configuration = null
     ) {
         $this->name = $name;
 

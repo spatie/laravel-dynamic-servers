@@ -43,7 +43,7 @@ class Server extends Model
     public static function booted()
     {
         self::creating(function (self $server) {
-            if (null === $server->status) {
+            if ($server->status === null) {
                 $server->status = ServerStatus::New;
                 $server->status_updated_at = now();
             }
@@ -71,7 +71,7 @@ class Server extends Model
         return DynamicServers::getServerType($this->type);
     }
 
-    public static function prepareNew(string $type = 'default', string $name = null): Server
+    public static function prepareNew(string $type = 'default', ?string $name = null): Server
     {
         /** @var ServerType $serverType */
         $serverType = DynamicServers::getServerType($type);
@@ -197,7 +197,7 @@ class Server extends Model
 
     public function scopeType(Builder $query, string $type): Builder
     {
-        return  $query->where('type', $type);
+        return $query->where('type', $type);
     }
 
     protected function generateName(): string
