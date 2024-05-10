@@ -22,15 +22,15 @@
     ],
     "require": {
         "php": "^8.1",
-        "illuminate/contracts": "^9.0|^10.0|^11.0",
-        "illuminate/http": "^9.26|^10.0|^11.0",
+        "illuminate/contracts": "^10.0|^11.0",
+        "illuminate/http": "^10.0|^11.0",
         "spatie/laravel-package-tools": "^1.13.3"
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^7.5",
-        "nunomaduro/collision": "^6.3|^7.0|^8.0",
+        "nunomaduro/collision": "^7.0|^8.0",
         "nunomaduro/larastan": "^2.2",
-        "orchestra/testbench": "^7.7|^8.0|^9.0",
+        "orchestra/testbench": "^8.0|^9.0",
         "pestphp/pest": "^v2.34",
         "pestphp/pest-plugin-laravel": "^2.4",
         "phpunit/phpunit": "^9.5|^10.5|^11.0",
