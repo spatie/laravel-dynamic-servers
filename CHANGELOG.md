@@ -2,6 +2,29 @@
 
 All notable changes to `laravel-dynamic-servers` will be documented in this file.
 
+## 1.1.0 - 2024-05-10
+
+### What's Changed
+
+* Add support for Laravel 11
+* Drop support for Laravel 9 & PHP 8.1
+* Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/12
+* Documentation fix: Replace $servers with DynamicServers facade by @georgejipa in https://github.com/spatie/laravel-dynamic-servers/pull/13
+* Bump aglipanci/laravel-pint-action from 2.1.0 to 2.2.0 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/14
+* Bump dependabot/fetch-metadata from 1.3.6 to 1.4.0 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/15
+* Bump dependabot/fetch-metadata from 1.4.0 to 1.5.0 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/16
+* Bump aglipanci/laravel-pint-action from 2.2.0 to 2.3.0 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/17
+* Bump dependabot/fetch-metadata from 1.5.0 to 1.5.1 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/18
+* Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/19
+* Bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/22
+* Bump aglipanci/laravel-pint-action from 2.3.1 to 2.4 by @dependabot in https://github.com/spatie/laravel-dynamic-servers/pull/24
+
+### New Contributors
+
+* @georgejipa made their first contribution in https://github.com/spatie/laravel-dynamic-servers/pull/13
+
+**Full Changelog**: https://github.com/spatie/laravel-dynamic-servers/compare/1.0.2...1.1.0
+
 ## 1.0.2 - 2023-01-25
 
 - support L10
