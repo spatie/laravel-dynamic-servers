@@ -10,6 +10,5 @@ class ServerHangingEvent
     public function __construct(
         public Server $server,
         public ServerStatus $previousStatus,
-    ) {
-    }
+    ) {}
 }

@@ -11,7 +11,7 @@ beforeEach(function () {
 
     $server = Server::factory()->create()->addMeta('server_properties.uuid', Str::uuid());
 
-    $this->upcloudServerProvider = (new UpCloudServerProvider())->setServer($server);
+    $this->upcloudServerProvider = (new UpCloudServerProvider)->setServer($server);
 });
 
 it('can determine the total number of servers on UpCloud', function () {

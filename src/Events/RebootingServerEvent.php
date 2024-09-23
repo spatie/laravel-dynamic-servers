@@ -8,6 +8,5 @@ class RebootingServerEvent
 {
     public function __construct(
         public Server $server,
-    ) {
-    }
+    ) {}
 }

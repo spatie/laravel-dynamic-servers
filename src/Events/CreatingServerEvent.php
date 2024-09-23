@@ -8,6 +8,5 @@ class CreatingServerEvent
 {
     public function __construct(
         public Server $server,
-    ) {
-    }
+    ) {}
 }

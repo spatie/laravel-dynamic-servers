@@ -8,6 +8,5 @@ class ServerDeletedEvent
 {
     public function __construct(
         public Server $server,
-    ) {
-    }
+    ) {}
 }

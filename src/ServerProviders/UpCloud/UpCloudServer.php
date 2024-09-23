@@ -9,8 +9,7 @@ class UpCloudServer
         public string $title,
         public string $ip,
         public UpCloudServerStatus $status,
-    ) {
-    }
+    ) {}
 
     public static function fromApiPayload(array $payload): self
     {

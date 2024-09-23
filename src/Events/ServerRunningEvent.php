@@ -10,6 +10,5 @@ class ServerRunningEvent
     public function __construct(
         public Server $server,
         public ServerStatus $previousStatus,
-    ) {
-    }
+    ) {}
 }

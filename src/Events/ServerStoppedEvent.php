@@ -8,6 +8,5 @@ class ServerStoppedEvent
 {
     public function __construct(
         public Server $server,
-    ) {
-    }
+    ) {}
 }

@@ -49,7 +49,7 @@ class Server extends Model
             }
 
             if (empty($server->meta)) {
-                $server->meta = new ArrayObject();
+                $server->meta = new ArrayObject;
             }
         });
 
@@ -221,7 +221,7 @@ class Server extends Model
     {
         $allStatuses = collect(ServerStatus::cases())->map->value;
 
-        $actualStatuses = DB::table((new self())->getTable())
+        $actualStatuses = DB::table((new self)->getTable())
             ->select('status', DB::raw('count(*) as count'))
             ->whereIn('status', $allStatuses->toArray())
             ->groupBy('status')

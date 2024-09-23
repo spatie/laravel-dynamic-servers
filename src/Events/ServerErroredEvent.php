@@ -8,6 +8,5 @@ class ServerErroredEvent
 {
     public function __construct(
         public Server $server,
-    ) {
-    }
+    ) {}
 }

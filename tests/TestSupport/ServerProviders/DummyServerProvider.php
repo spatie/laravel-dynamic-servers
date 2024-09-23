@@ -26,9 +26,7 @@ class DummyServerProvider extends ServerProvider
         return true;
     }
 
-    public function deleteServer(): void
-    {
-    }
+    public function deleteServer(): void {}
 
     public function hasBeenDeleted(): bool
     {
