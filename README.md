@@ -1,9 +1,19 @@
-# Dynamically create and destroy servers
+<div align="left">
+    <a href="https://spatie.be/open-source?utm_source=github&utm_medium=banner&utm_campaign=laravel-dynamic-servers">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://spatie.be/packages/header/laravel-dynamic-servers/html/dark.webp">
+        <img alt="Logo for laravel-dynamic-servers" src=" https://spatie.be/packages/header/laravel-dynamic-servers/html/light.webp" height="190">
+      </picture>
+    </a>
+
+<h1>Dynamically create and destroy servers</h1>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-dynamic-servers.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-dynamic-servers)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-dynamic-servers/run-tests?label=tests)](https://github.com/spatie/laravel-dynamic-servers/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-dynamic-servers/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/spatie/laravel-dynamic-servers/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-dynamic-servers.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-dynamic-servers)
+    
+</div>
 
 This package can help you start and stop servers when you need them. The prime use case is to spin up extra working servers that can help you process the workload on queues.
 
