@@ -3,6 +3,7 @@
 namespace Spatie\DynamicServers\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Spatie\DynamicServers\Enums\ServerStatus;
 use Spatie\DynamicServers\Models\Server;
@@ -17,7 +18,7 @@ class DetectHangingServersCommand extends Command
 
         $thresholdInMinutes = config('dynamic-servers.mark_server_as_hanging_after_minutes');
 
-        /** @var \Illuminate\Support\Collection $hangingServers */
+        /** @var Collection $hangingServers */
         $hangingServers = Server::query()
             ->status(
                 ServerStatus::New,

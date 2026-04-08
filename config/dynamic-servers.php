@@ -1,9 +1,24 @@
 <?php
 
+use Spatie\DynamicServers\Actions\FindServersToStopAction;
+use Spatie\DynamicServers\Actions\GenerateServerNameAction;
+use Spatie\DynamicServers\Actions\RebootServerAction;
+use Spatie\DynamicServers\Actions\StartServerAction;
+use Spatie\DynamicServers\Actions\StopServerAction;
+use Spatie\DynamicServers\Jobs\CreateServerJob;
+use Spatie\DynamicServers\Jobs\DeleteServerJob;
+use Spatie\DynamicServers\Jobs\RebootServerJob;
+use Spatie\DynamicServers\Jobs\StopServerJob;
+use Spatie\DynamicServers\Jobs\VerifyServerDeletedJob;
+use Spatie\DynamicServers\Jobs\VerifyServerRebootedJob;
+use Spatie\DynamicServers\Jobs\VerifyServerStartedJob;
+use Spatie\DynamicServers\Jobs\VerifyServerStoppedJob;
+use Spatie\DynamicServers\ServerProviders\UpCloud\UpCloudServerProvider;
+
 return [
     'providers' => [
         'up_cloud' => [
-            'class' => Spatie\DynamicServers\ServerProviders\UpCloud\UpCloudServerProvider::class,
+            'class' => UpCloudServerProvider::class,
             'maximum_servers_in_account' => 20,
             'options' => [
                 'username' => env('UP_CLOUD_USER_NAME'),
@@ -19,11 +34,11 @@ return [
      * the defaults.
      */
     'actions' => [
-        'generate_server_name' => Spatie\DynamicServers\Actions\GenerateServerNameAction::class,
-        'start_server' => Spatie\DynamicServers\Actions\StartServerAction::class,
-        'stop_server' => Spatie\DynamicServers\Actions\StopServerAction::class,
-        'find_servers_to_stop' => Spatie\DynamicServers\Actions\FindServersToStopAction::class,
-        'reboot_server' => Spatie\DynamicServers\Actions\RebootServerAction::class,
+        'generate_server_name' => GenerateServerNameAction::class,
+        'start_server' => StartServerAction::class,
+        'stop_server' => StopServerAction::class,
+        'find_servers_to_stop' => FindServersToStopAction::class,
+        'reboot_server' => RebootServerAction::class,
     ],
 
     /*
@@ -32,14 +47,14 @@ return [
      * it's fine to use the defaults.
      */
     'jobs' => [
-        'create_server' => Spatie\DynamicServers\Jobs\CreateServerJob::class,
-        'verify_server_started' => Spatie\DynamicServers\Jobs\VerifyServerStartedJob::class,
-        'stop_server' => Spatie\DynamicServers\Jobs\StopServerJob::class,
-        'verify_server_stopped' => Spatie\DynamicServers\Jobs\VerifyServerStoppedJob::class,
-        'delete_server' => Spatie\DynamicServers\Jobs\DeleteServerJob::class,
-        'verify_server_deleted' => Spatie\DynamicServers\Jobs\VerifyServerDeletedJob::class,
-        'reboot_server' => Spatie\DynamicServers\Jobs\RebootServerJob::class,
-        'verify_server_rebooted' => Spatie\DynamicServers\Jobs\VerifyServerRebootedJob::class,
+        'create_server' => CreateServerJob::class,
+        'verify_server_started' => VerifyServerStartedJob::class,
+        'stop_server' => StopServerJob::class,
+        'verify_server_stopped' => VerifyServerStoppedJob::class,
+        'delete_server' => DeleteServerJob::class,
+        'verify_server_deleted' => VerifyServerDeletedJob::class,
+        'reboot_server' => RebootServerJob::class,
+        'verify_server_rebooted' => VerifyServerRebootedJob::class,
     ],
 
     /**
