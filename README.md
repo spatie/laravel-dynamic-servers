@@ -9,8 +9,8 @@
 <h1>Dynamically create and destroy servers</h1>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-dynamic-servers.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-dynamic-servers)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-dynamic-servers/run-tests?label=tests)](https://github.com/spatie/laravel-dynamic-servers/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-dynamic-servers/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/spatie/laravel-dynamic-servers/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Tests Action Status](https://github.com/spatie/laravel-dynamic-servers/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/laravel-dynamic-servers/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://github.com/spatie/laravel-dynamic-servers/actions/workflows/fix-php-code-style-issues.yml/badge.svg)](https://github.com/spatie/laravel-dynamic-servers/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-dynamic-servers.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-dynamic-servers)
     
 </div>
